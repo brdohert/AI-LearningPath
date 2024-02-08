@@ -442,8 +442,22 @@ Recall measures the model's ability to predict actual positive classes. F1 score
 
 
 
-# Shirley MacKay's Outline & Notes [shmackay]
+# Shirley MacKay's Outline & Notes 
 Practice Assessment - [Practice Assessments for Microsoft Certifications | Microsoft Learn](https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications "https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications")
+## Videos 
+- [Preparing for AI-102 - Plan and manage an Azure AI solution (Part 1 of 6) | Microsoft Learn!](https://github.com/brdohert/AI-LearningPath/assets/46727041/3ec5029d-a60b-4d62-870f-611eb7469b3e)
+
+## Overview
+[What are Azure AI services? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/what-are-ai-services)
+**Azure AI Vision Image Analysis** service can extract a wide variety of visual features from an images. One of them is to detect adult content.
+**Azure AI Face** service provides AI algorithms that detect, recognize, and analyze human faces in images. 
+**Azure AI Custom Vision** is an image recognition service that lets you build, deploy, and improve own image identifier models. So, while it is possible, it is not the solution with the lowest development effort. Azure AI Vision 
+**Spatial Analysis** is used to ingest streaming video from cameras, extract insights, and generate events to be used by other systems.
+**Azure AI Document Intelligence** is a service that lets you build automated data processing software by using machine learning technology. It allows you to identify and extract text and key/value pairs.
+**Azure AI Metrics Advisor** uses AI to perform data monitoring and anomaly detection in time series data.
+**Azure AI Immersive Reader** is a tool that implements techniques to improve reading comprehension for new readers, language learners, and people with learning differences.
+**Azure Cognitive Search** or **AI Search** is a cloud search service to help you identify and explore relevant content at scale.
+**Anomaly Detector** is an AI service with a set of APIs, which enables you to monitor and detect anomalies in your time series data with little machine learning (ML) knowledge, either batch validation or real-time inference.
 
 Select the appropriate Azure AI service (C# or Python)
 
@@ -473,10 +487,12 @@ Manage, monitor and secure an Azure AI service
     - [Diagnostic logging - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/diagnostic-logging "https://learn.microsoft.com/en-us/azure/ai-services/diagnostic-logging")
         - (Performance)
 
+```
 AzureDiagnostics
 | where ResourceProvider == "MICROSOFT.COGNITIVESERVICES"
 | summarize avg(DurationMs)
 by OperationName
+```
 - [Azure AI services security - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/security-features "https://learn.microsoft.com/en-us/azure/ai-services/security-features")
 - Monitor an Azure AI resource
 - Manage costs for Azure AI services
@@ -497,14 +513,14 @@ by OperationName
     - [Configure Virtual Networks for Azure AI services - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/cognitive-services-virtual-networks?context=%2Fazure%2Fai-services%2Fopenai%2Fcontext%2Fcontext&tabs=portal "https://learn.microsoft.com/en-us/azure/ai-services/cognitive-services-virtual-networks?context=%2fazure%2fai-services%2fopenai%2fcontext%2fcontext&tabs=portal")(Need to know)
     - [Create a Private Endpoint for a secure connection - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/service-create-private-endpoint "https://learn.microsoft.com/en-us/azure/search/service-create-private-endpoint")
 
-Implement decision support solutions (10–15%)
+### Implement decision support solutions (10–15%)
 
 Create decision support solutions for data monitoring and content delivery
 - Implement a data monitoring solution with Azure AI Metrics Advisor
 - Implement a **text moderation** solution with Azure AI Content Safety
 - Implement an image moderation solution with Azure AI Content Safety
 
-Implement computer vision solutions (15–20%)
+### Implement computer vision solutions (15–20%)
 
 Analyze images
 - Select visual features to meet image processing requirements
@@ -547,7 +563,7 @@ Analyze videos
     - [Automatically identify and transcribe multi-language content with Azure AI Video Indexer | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-video-indexer/multi-language-identification-transcription "https://learn.microsoft.com/en-us/azure/azure-video-indexer/multi-language-identification-transcription")
 - Use Azure AI Vision Spatial Analysis to detect presence and movement of people in video
 
-Implement natural language processing solutions (30–35%)
+### Implement natural language processing solutions (30–35%)
 Analyze text by using Azure AI Language
 - Extract key phrases
     - [What is key phrase extraction in Azure AI Language? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/overview "https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/overview")
@@ -618,7 +634,7 @@ Create a question answering solution by using Azure AI Language
 - Export a knowledge base
 - **Create a multi-language question answering solution**
 
-Implement knowledge mining and document intelligence solutions (10–15%)
+### Implement knowledge mining and document intelligence solutions (10–15%)
 
 Implement an Azure Cognitive Search solution
 
@@ -651,7 +667,7 @@ Implement an Azure AI Document Intelligence solution
 - Create a composed document intelligence model
 - **Implement a document intelligence model as a custom Azure Cognitive Search skill(Know the skill and skillset document settings)**
 
-Implement generative AI solutions (10–15%) (very few questions)
+### Implement generative AI solutions (10–15%) (very few questions)
 
 Use Azure OpenAI Service to generate content
 
@@ -670,7 +686,7 @@ Optimize generative AI
 
 - Fine-tune an Azure OpenAI model
 
-Related to AGC Specific Docs(Several Questions)
+Related Specific Docs(Several Questions)
 
 - [Use Docker containers in disconnected environments - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/containers/disconnected-containers "https://learn.microsoft.com/en-us/azure/ai-services/containers/disconnected-containers")
 - [Azure AI containers FAQ - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/containers/container-faq#are-these-containers-available-in-sovereign-clouds "https://learn.microsoft.com/en-us/azure/ai-services/containers/container-faq#are-these-containers-available-in-sovereign-clouds")
@@ -681,11 +697,110 @@ Troubleshoot
 - Mismatch means that the wrong API key has been used. [Deploy cognitive services in containers - Training | Microsoft Learn](https://learn.microsoft.com/training/modules/investigate-container-for-use-cognitive-services/ "https://learn.microsoft.com/training/modules/investigate-container-for-use-cognitive-services/")
 - [Azure AI containers FAQ - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/containers/container-faq "https://learn.microsoft.com/en-us/azure/ai-services/containers/container-faq")
 
-Bot
-- [https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0](https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0 "https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0")
+### Additional Info
+
+**Bot**
+[- [https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0](https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0 "https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0")
 - [Configure bot settings - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/bot-service-manage-settings?view=azure-bot-service-4.0&tabs=multitenant "https://learn.microsoft.com/en-us/azure/bot-service/bot-service-manage-settings?view=azure-bot-service-4.0&tabs=multitenant")
 - [Event-driven conversations and activity handlers - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/bot-activity-handler-concept?view=azure-bot-service-4.0&tabs=csharp "https://learn.microsoft.com/azure/bot-service/bot-activity-handler-concept?view=azure-bot-service-4.0&tabs=csharp")
 - [Monitoring Azure AI Bot Service - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/monitor-bot-service?view=azure-bot-service-4.0 "https://learn.microsoft.com/en-us/azure/bot-service/monitor-bot-service?view=azure-bot-service-4.0")
 - [About network isolation in Azure AI Bot Service - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/dl-network-isolation-concept?view=azure-bot-service-4.0 "https://learn.microsoft.com/en-us/azure/bot-service/dl-network-isolation-concept?view=azure-bot-service-4.0") (Need to know)
-- [Add rich card attachments to messages - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-connector-add-rich-cards?view=azure-bot-service-4.0#types-of-rich-cards "https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-connector-add-rich-cards?view=azure-bot-service-4.0#types-of-rich-cards")
+- [Add rich card attachments to messages - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-connector-add-rich-cards?view=azure-bot-service-4.0#types-of-rich-cards "https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-connector-add-rich-cards?view=azure-bot-service-4.0#types-of-rich-cards")](https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0
+[Configure bot settings - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/bot-service-manage-settings?view=azure-bot-service-4.0&tabs=multitenant)
+[Event-driven conversations and activity handlers - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/bot-activity-handler-concept?view=azure-bot-service-4.0&tabs=csharp)
+[Monitoring Azure AI Bot Service - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/monitor-bot-service?view=azure-bot-service-4.0)
+[About network isolation in Azure AI Bot Service - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/dl-network-isolation-concept?view=azure-bot-service-4.0) (Need to know)
+[Add rich card attachments to messages - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-connector-add-rich-cards?view=azure-bot-service-4.0#types-of-rich-cards)
+[Language understanding - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/bot-builder-concept-luis?view=azure-bot-service-4.0)
+[Create a Bot with the Bot Framework Composer - Training | Microsoft Learn](https://learn.microsoft.com/training/modules/create-bot-with-bot-framework-composer/)
+[Memory scopes and properties - Bot Framework Composer | Microsoft Learn](https://learn.microsoft.com/composer/ref-memory-variables?tabs=v2x)
+[Templates available in Bot Framework Composer | Microsoft Learn](https://learn.microsoft.com/composer/concept-templates)
+[Test and debug bots using the Bot Framework Emulator - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/bot-service-debug-emulator?view=azure-bot-service-4.0&tabs=csharp)
+[Characteristics and limitations of question answering - Azure Cognitive Services | Microsoft Learn](https://learn.microsoft.com/legal/cognitive-services/language-service/characteristics-and-limitations-question-answering#question-and-answer-extraction-from-the-source)(Need to know)
+[Azure Bot Service documentation - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/?view=azure-bot-service-4.0)
+[Choose a bot-building tool - Training | Microsoft Learn](https://learn.microsoft.com/training/modules/choose-bot-building-tool/)
+ 
+LUIS
+[Testing for DevOps for LUIS apps - Azure | Microsoft Learn[(https://learn.microsoft.com/en-us/azure/ai-services/luis/luis-concept-devops-testing#luis-non-deterministic-training-and-the-effect-on-testing)
+ 
+ 
+Face
+- [How to specify a detection model - Face - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/how-to/specify-detection-model)
+- [Detect, analyze, and recognize faces - Training | Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/detect-analyze-recognize-faces/)
+ 
+ 
+Notes:
+Learn APIs for Translator, Speech, and Management etc.
+   - [Management REST APIs - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/searchmanagement/#connect-to-the-management-endpoint)
+Quickstart: Azure AI Translator REST APIs - Azure AI services | Microsoft Learn
+Translator Translate Method - Azure AI services | Microsoft Learn - understand the parameters)
+Get started with Document Translation - Azure AI services | Microsoft Learn
+Cognitive Services APIs Reference (microsoft.com)
+Be aware of Text Moderation, which has changed names. Understand basics, but use the learn docs on the exam to exact categories, etc since this has changed.
+Quickstart: Analyze image and text content - Azure AI services | Microsoft Learn
+Harm categories in Azure AI Content Safety - Azure AI services | Microsoft Learn
+Migrate Cognitive Services to another region
+Know the ARM Template for CognitiveServices (Microsoft.CognitiveServices/accounts - Bicep, ARM template & Terraform AzAPI reference | Microsoft Learn)
+Understand Text Classification
+Understand Object Detection
+Understand what domains to choose.
+Quickstart: Build an object detector with the Custom Vision website - Azure AI services | Microsoft Learn
+Export your model to mobile - Custom Vision Service - Azure AI services | Microsoft Learn
+Understand various ways to understand precision metrics for Custom Vision.
+Use prediction endpoint to programmatically test images with classifier - Custom Vision - Azure AI services | Microsoft Learn
+Quickstart: Build an object detector with the Custom Vision website - Azure AI services | Microsoft Learn
+How to upload audio files to Speech Service through Language Studio
+Understand Multi-Label vs Multi-Class Quickstart: Build an image classification model with the Custom Vision portal - Azure AI services | Microsoft Learn
+Understand CLI and Entities
+Anomaly Detector (Know the differences, such as batch, etc))https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0
+Configure bot settings - Bot Service | Microsoft Learn
+Event-driven conversations and activity handlers - Bot Service | Microsoft Learn
+Monitoring Azure AI Bot Service - Bot Service | Microsoft Learn
+About network isolation in Azure AI Bot Service - Bot Service | Microsoft Learn (Need to know)
+Add rich card attachments to messages - Bot Service | Microsoft Learn
+Language understanding - Bot Service | Microsoft Learn
+Create a Bot with the Bot Framework Composer - Training | Microsoft Learn
+Memory scopes and properties - Bot Framework Composer | Microsoft Learn
+Templates available in Bot Framework Composer | Microsoft Learn
+Test and debug bots using the Bot Framework Emulator - Bot Service | Microsoft Learn
+Characteristics and limitations of question answering - Azure Cognitive Services | Microsoft Learn(Need to know)
+Azure Bot Service documentation - Bot Service | Microsoft Learn
+Choose a bot-building tool - Training | Microsoft Learn
+ 
+LUIS
+Testing for DevOps for LUIS apps - Azure | Microsoft Learn
+ 
+ 
+Face
+How to specify a detection model - Face - Azure AI services | Microsoft Learn
+Detect, analyze, and recognize faces - Training | Microsoft Learn
+ 
+
+ 
+From <https://learn.microsoft.com/en-us/azure/ai-services/anomaly-detector/overview>
+ 
+Notes:
+Learn APIs for Translator, Speech, and Management etc.
+Management REST APIs - Azure AI Search | Microsoft Learn
+Quickstart: Azure AI Translator REST APIs - Azure AI services | Microsoft Learn
+Translator Translate Method - Azure AI services | Microsoft Learn - understand the parameters)
+Get started with Document Translation - Azure AI services | Microsoft Learn
+Cognitive Services APIs Reference (microsoft.com)
+Be aware of Text Moderation, which has changed names. Understand basics, but use the learn docs on the exam to exact categories, etc since this has changed.
+Quickstart: Analyze image and text content - Azure AI services | Microsoft Learn
+Harm categories in Azure AI Content Safety - Azure AI services | Microsoft Learn
+Migrate Cognitive Services to another region
+Know the ARM Template for CognitiveServices (Microsoft.CognitiveServices/accounts - Bicep, ARM template & Terraform AzAPI reference | Microsoft Learn)
+Understand Text Classification
+Understand Object Detection
+Understand what domains to choose.
+Quickstart: Build an object detector with the Custom Vision website - Azure AI services | Microsoft Learn
+Export your model to mobile - Custom Vision Service - Azure AI services | Microsoft Learn
+Understand various ways to understand precision metrics for Custom Vision.
+Use prediction endpoint to programmatically test images with classifier - Custom Vision - Azure AI services | Microsoft Learn
+Quickstart: Build an object detector with the Custom Vision website - Azure AI services | Microsoft Learn
+How to upload audio files to Speech Service through Language Studio
+Understand Multi-Label vs Multi-Class Quickstart: Build an image classification model with the Custom Vision portal - Azure AI services | Microsoft Learn
+Understand CLI and Entities
+Anomaly Detector (Know the differences, such as batch, etc)
 

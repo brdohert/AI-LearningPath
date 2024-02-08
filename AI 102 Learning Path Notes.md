@@ -42,6 +42,9 @@ Team notes: Brian Doherty, Shirley MacKay, John Savil
 - Test is reportedly 'open book', you will have access to online docs but not enough time to research it cold.  References might solidify an answer but you should kinda know it going in.
 - 
 ![[Pasted image 20240122221622.png]]
+
+
+## (Outline) 
 ### Plan and Manage an Azure AI Solution
 
 ### Implement image and video processing solutions
@@ -49,6 +52,8 @@ Team notes: Brian Doherty, Shirley MacKay, John Savil
 ### Implement natural language processing solutions
 ### Implement knowledge mining solutions
 ### Implement conversational AI solutions
+
+
 
 
 
@@ -209,7 +214,7 @@ Recall measures the model's ability to predict actual positive classes. F1 score
 	- https://learn.microsoft.com/training/modules/build-qna-solution-qna-maker/
 
 - Cognitive Services-Question Answering
-	- Note: Synonyms-need to remove special characters
+	- Note: Synonyms-need to remove special characters are not allowed
 	- [Enrich your project with active learning - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/tutorials/active-learning)
 	- [Build a question answering solution - Training | Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/build-qna-solution-qna-maker/)
 
@@ -469,13 +474,9 @@ Manage, monitor and secure an Azure AI service
         - (Performance)
 
 AzureDiagnostics
-
 | where ResourceProvider == "MICROSOFT.COGNITIVESERVICES"
-
 | summarize avg(DurationMs)
-
 by OperationName
-
 - [Azure AI services security - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/security-features "https://learn.microsoft.com/en-us/azure/ai-services/security-features")
 - Monitor an Azure AI resource
 - Manage costs for Azure AI services
@@ -499,7 +500,6 @@ by OperationName
 Implement decision support solutions (10–15%)
 
 Create decision support solutions for data monitoring and content delivery
-
 - Implement a data monitoring solution with Azure AI Metrics Advisor
 - Implement a **text moderation** solution with Azure AI Content Safety
 - Implement an image moderation solution with Azure AI Content Safety
@@ -507,7 +507,6 @@ Create decision support solutions for data monitoring and content delivery
 Implement computer vision solutions (15–20%)
 
 Analyze images
-
 - Select visual features to meet image processing requirements
     - [What is Image Analysis? - Azure Cognitive Services | Microsoft Learn](https://learn.microsoft.com/azure/cognitive-services/computer-vision/overview-image-analysis?tabs=3-2 "https://learn.microsoft.com/azure/cognitive-services/computer-vision/overview-image-analysis?tabs=3-2")
 - Detect objects in images and generate image tags
@@ -549,15 +548,12 @@ Analyze videos
 - Use Azure AI Vision Spatial Analysis to detect presence and movement of people in video
 
 Implement natural language processing solutions (30–35%)
-
 Analyze text by using Azure AI Language
-
 - Extract key phrases
     - [What is key phrase extraction in Azure AI Language? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/overview "https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/overview")
     - [Quickstart: Use the Key Phrase Extraction client library - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/quickstart?pivots=programming-language-csharp "https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/quickstart?pivots=programming-language-csharp")
 
 Import Azure.AI.TextAnalytics
-
 - REST API
     - [Text Analysis Runtime - REST API (Azure Cognitive Services - Language) | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/language/text-analysis-runtime?view=rest-language-2023-04-01 "https://learn.microsoft.com/en-us/rest/api/language/text-analysis-runtime?view=rest-language-2023-04-01")
 
@@ -686,16 +682,10 @@ Troubleshoot
 - [Azure AI containers FAQ - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/containers/container-faq "https://learn.microsoft.com/en-us/azure/ai-services/containers/container-faq")
 
 Bot
-
 - [https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0](https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0 "https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0")
 - [Configure bot settings - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/bot-service-manage-settings?view=azure-bot-service-4.0&tabs=multitenant "https://learn.microsoft.com/en-us/azure/bot-service/bot-service-manage-settings?view=azure-bot-service-4.0&tabs=multitenant")
 - [Event-driven conversations and activity handlers - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/bot-activity-handler-concept?view=azure-bot-service-4.0&tabs=csharp "https://learn.microsoft.com/azure/bot-service/bot-activity-handler-concept?view=azure-bot-service-4.0&tabs=csharp")
 - [Monitoring Azure AI Bot Service - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/monitor-bot-service?view=azure-bot-service-4.0 "https://learn.microsoft.com/en-us/azure/bot-service/monitor-bot-service?view=azure-bot-service-4.0")
 - [About network isolation in Azure AI Bot Service - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/dl-network-isolation-concept?view=azure-bot-service-4.0 "https://learn.microsoft.com/en-us/azure/bot-service/dl-network-isolation-concept?view=azure-bot-service-4.0") (Need to know)
 - [Add rich card attachments to messages - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-connector-add-rich-cards?view=azure-bot-service-4.0#types-of-rich-cards "https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-connector-add-rich-cards?view=azure-bot-service-4.0#types-of-rich-cards")
-
-
-
-
-
 

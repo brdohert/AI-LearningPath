@@ -1,8 +1,27 @@
 
+Content derived from Measure UP study guide purchased with personal funds.  Content is only good for 30-60 days before becoming stale.  These are my personal notes based  on rote memorization techniques I like to use to enforce retention.
+
+[https://marketplace.measureup.com/login](https://marketplace.measureup.com/login)
+
+## Test Layout
+- Plan and manage an Azure AI solution
+- Implement decision support solutions
+- Implement computer vision solutions
+- Implement natural language processing solutions
+- Implement knowledge mining and document intelligence solutions
+- Implement generative Al solutions
+
+
+
+
+
 ### Anomaly Detection
 #### Notes:
+
 Detecting porno or offensive content is done with the Content Moderator.
+
 Anomaly Detector finds data that is an outlier or is out of trend in time-series data. It does not analyze content supplied by users for offensive content such as adult, racy, gory images.
+
 Personalizer determines best content to show a user.  Think shopping cart applications, NetFlix queue recommendations and stuff like that. Content Moderator is the AI service that deals with 'offensive' content.  The content is flagged for human review in the portal.
 #### References
 - [What is Anomaly Detector? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/anomaly-detector/overview)
@@ -52,21 +71,7 @@ Default answer is used when custom question answering cannot find an answer. You
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Cognitive Search
+### AI Services - AI Search
 #### Notes
 Know about the enrichment pipeline.  Key here is the Projections when saving your enriched document.  The Knowledge store "projection" can be stored in Blob storage.  This is considered your knowledge store.  This term is used a lot in several scenarios on the test.
 
@@ -80,7 +85,7 @@ You can use table projections to save a valid JSON output to Azure Table storage
 - [Projection concepts - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/search/knowledge-store-projection-overview)
 - [Define projections - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/search/knowledge-store-projections-examples)
 - [Explore data in Azure Blob storage with pandas - Azure Architecture Center | Microsoft Learn](https://learn.microsoft.com/en-us/azure/architecture/data-science-process/explore-data-blob)
-- 
+
 
 
 
@@ -99,7 +104,7 @@ Each folder requires a separate data source. For example, researchers must not b
 
 *Properties of knowledge store* - enhancing the data
 You should define the source and tableName properties. Azure Cognitive Search can use the built-in Azure AI Language skills from Cognitive Services. One such skill is key phrase extraction. The key phrases extracted should be stored in Azure Table Storage, TAB3. When saving enrichments as a table projection to a knowledge store, you need to specify the source and tableName.
-Source is the path of the projection. In this secnario, source will be /document/tableprojection/key Phrases/*.
+Source is the path of the projection. In this scenario, source will be /document/tableprojection/key Phrases/*.
 Tablename is the name of the table to create in Azure Table storage.
 You should not specify storageContainer. storageContainer is used for storing enrichments in Azure Blob storage as object projections.
 You should not specify encryptionKey. encryptionKey is optional and used to reference an Azure Key Vault for the skillset, not for the knowledge store.
@@ -164,6 +169,10 @@ You should not use AVRO, HTML or XML formats. AVRO format was developed by the A
 - [HTML Basics | Microsoft Learn](https://learn.microsoft.com/en-us/cpp/mfc/html-basics?view=msvc-160)
 
 
+
+
+
+
 ### Cognitive Services - Document Intelligence deployment
 #### Notes
 This is absolutely on the test so know how to form the request.  If you've deployed this before it just seems natural and it's one of those ones you can noodle out.
@@ -188,6 +197,9 @@ The azure-cognitive-services/vision repository is a common storage location for 
 - [Microsoft security portals and admin centers | Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-365/security/defender/portals?view=o365-worldwide)
 
 
+
+
+
 ### Cognitive Services - Sentiment Analysis app
 #### Notes
 ; Planning / design an AI LLM container locally to avoid transferring senstitive info to the cloud. You downloaded the AI LLM container to a local host. You retrieve the API key and the endpoint URL http://mysentiment.cognativeservices.azure.com
@@ -209,6 +221,8 @@ You should not run the container with the docker run --rm -it -p 5000:8080 --mem
 
 
 
+
+
 ### Cognitive Search - Deployment
 #### Notes
 ; Cog Search 'Search1' deployed to RG1
@@ -217,27 +231,30 @@ You should not run the container with the docker run --rm -it -p 5000:8080 --mem
 ; Understand the process around rotating keys (2nd key first then primary)
 
 General format:
+```text
 POST https://  ***management.azure.com***  /subscriptions/6088ECEl-5EB9-4260-3AA5-590F36359AE0/resourceGroups/RG 1/providers/
 ***"MicrosoftSearch"***
 /searchServices/Search1/
 **"createQueryLey"**
 /ClientAppl?api-version=2020-08-01
+```
 
-management.azure.com is the endpoint for the management of Azure services, including the Search service, and it enables the management and creation of keys for the Search service.
+(Use) management.azure.com is the endpoint for the management of Azure services, including the Search service, and it enables the management and creation of keys for the Search service.
 You use the management.azure.com endpoint to create the key for ClientAppl.
-You should not use Search1.search.windows.net. This is the endpoint for the Search service. The client application will use this to query the indexes, but you cannot use it to create a key for ClientAppl.
 
-You should not use api.cognitive.microsoft.com. This endpoint is used by the Bing Search services.
+(Use) You should use Microsoft.Search. This is the provider for the Search service. Using this provider, you can regenerate the admin keys or create query keys for the Search service. You require a query key to allow ClientAppl to perform queries on the indexes.
 
-You should use Microsoft.Search. This is the provider for the Search service. Using this provider, 
-you can regenerate the admin keys or create query keys for the Search service. You require a query key to allow ClientAppl to perform queries on the indexes.
-
-You should not use Microsoft.CognitiveServices. This is the provider for generic Cognitive Services. It can regenerate the primary and secondary keys for the service, but it cannot generate query keys for the Search service.
-
-You should not use Microsoft.Authorization. This is the provider for managing resources in Azure and can be used to define Azure policies and apply locks to resources.
-
-You should use createQueryKey. A query key only allows the client application to search and access indexes and documents. It does not allow the application to manage the service.
+(Use) You should use createQueryKey. A query key only allows the client application to search and access indexes and documents. It does not allow the application to manage the service.
 You should not use regenerateAdminKey/primary or regenerateAdminKey/secondary. These key kinds are used to regenerate the primary and secondary administration keys. With an administration key, an application can manage the entire service and create and delete indexes.
+
+(Not) You should not use Search1.search.windows.net. This is the endpoint for the Search service. The client application will use this to query the indexes, but you cannot use it to create a key for ClientAppl.
+
+(Not) You should not use api.cognitive.microsoft.com. This endpoint is used by the Bing Search services.
+
+(Not) You should not use Microsoft.CognitiveServices. This is the provider for generic Cognitive Services. It can regenerate the primary and secondary keys for the service, but it cannot generate query keys for the Search service.
+
+(Not) You should not use Microsoft.Authorization. This is the provider for managing resources in Azure and can be used to define Azure policies and apply locks to resources.
+
 
 #### References
 - [Admin Keys - Regenerate - REST API (Azure Search Management) | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/searchmanagement/admin-keys/regenerate?view=rest-searchmanagement-2023-11-01&tabs=HTTP)
@@ -303,6 +320,12 @@ If the WER of the newly trained model improves compared to the benchmark model, 
 - [Create a CI/CD pipeline with Azure Pipelines - Azure Architecture Center | Microsoft Learn](https://learn.microsoft.com/en-us/azure/architecture/data-science-process/ci-cd-flask)
 
 
+
+
+
+
+
+
 ### Cognitive Services - Key Rotation process
 ; Lost/stolen key scenario
 #### Notes
@@ -315,14 +338,35 @@ If the WER of the newly trained model improves compared to the benchmark model, 
 - [Create a multi-service resource for Azure AI services - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/multi-service-resource?tabs=windows&pivots=azportal)
 
 
+
+
+
+
+
 ### Cognitive Services - Deploying Translator service
 Measure Up Question
-![[Pasted image 20240129160907.png]]
 
+You deploy a new multi-service Azure AI Services resource in the Azure West Europe region. You retrieve your resource’s subscription key abcdefg12345hijklmnop67890 from Azure.
+You plan to use a Linux command line to test the Spanish to English translation functionality of the Translator service. You want to test it with your Azure AI Services’ subscription key using the code snippet shown below:
+```text
+curl -X POST 'https://api.cognitive.microsofttranslator.com/translate7api- version=3.O&from=es&to=en' \
+-H 'Ocp-Apim-Subscription-Key: abcdefg'12345hijklmnop67890' \
+-H 'Ocp-Apim-Subscription-Region: westeurope' \
+-H 'Content-Type: application/json' \
+—data-raw '[{ "text": "Hola amigo" }]'
+```
+
+For each of the following statements, select Yes if the statement is true. Otherwise, select No.
+
+- (Yes) A subscription key from the Azure AI Services resource can be used to authenticate requests for the Translator service API.
+- (Yes) Ocp-Apim-Subscription-Key is a mandatory header for a multi-service subscription key authentication against the Translator service API.
+- (No) Ocp-Apim-Subscription-Region is an optional header for a multi-service subscription key authentication against the Translator service API.
 #### Notes
-A subscription key from the Azure AI Services resource can be used to authenticate requests for the Translator service API. Multi-service subscription keys are not tied to a specific Azure AI service. That is why you can use a single subscription key from the multi-service Azure AI Services resource to authenticate requests for the Azure AI services in the Vision, Speech, Language, and Decision domains.
-Ocp-Apim-Subscription-Key is a mandatory header for a multi-service subscription key authentication against the Translator service API. You use the Ocp-Apim-Subscription-Key authentication header to provide your multi-service subscription key. You can also use the Ocp-Apim-Subscription-Key header to authenticate with the Translator resource’s single-service subscription key.
-Ocp-Apim-Subscription-Region is not an optional header for a multi-service subscription key authentication against the Translator service API. The Ocp-Apim-Subscription-Region authentication header is required when you authenticate with a multi-service subscription key from your Azure AI Services resource. This header is optional when you use the Translator resource’s single-service subscription key.
+(Yes) A subscription key from the Azure AI Services resource can be used to authenticate requests for the Translator service API. Multi-service subscription keys are not tied to a specific Azure AI service. That is why you can use a single subscription key from the multi-service Azure AI Services resource to authenticate requests for the Azure AI services in the Vision, Speech, Language, and Decision domains.
+
+(Yes) Ocp-Apim-Subscription-Key is a mandatory header for a multi-service subscription key authentication against the Translator service API. You use the Ocp-Apim-Subscription-Key authentication header to provide your multi-service subscription key. You can also use the Ocp-Apim-Subscription-Key header to authenticate with the Translator resource’s single-service subscription key.
+
+(No) Ocp-Apim-Subscription-Region is not an optional header for a multi-service subscription key authentication against the Translator service API. The Ocp-Apim-Subscription-Region authentication header is required when you authenticate with a multi-service subscription key from your Azure AI Services resource. This header is optional when you use the Translator resource’s single-service subscription key.
 
 #### References
 - [Quickstart: Azure AI Translator REST APIs - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/ai-services/Translator/quickstart-text-rest-api?tabs=csharp)
@@ -330,15 +374,39 @@ Ocp-Apim-Subscription-Region is not an optional header for a multi-service subsc
 - [Create a multi-service resource for Azure AI services - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/multi-service-resource?tabs=windows&pivots=programming-language-python)
 
 
-AI Services - VNet Firewall deployment
-![[Pasted image 20240129161436.png]]
+
+
+
+
+
+### AI Services - VNet Firewall | PrivateLink
+
+You build a new app for your company. Your app components are deployed in an Azure Virtual Network (VNet) and assigned non-routable IP addresses from the 10.1.1.0/24 range.
+You want to integrate your app with an Azure AI service.
+The security team recommends that:
+•	Traffic between your app components and Azure AI service is routed through the Microsoft backbone network.
+•	The Azure AI service accepts requests exclusively from your app VNet's IP range.
+•	The Azure AI service uses a non-routable IP address from your app’s VNet.
+
+You need to configure the networking settings of an Azure AI service to meet the security requirements. 
+
+Which two settings should you configure? Each correct answer presents part of the solution.
 
 #### Notes
-You should set the Allow access from field to Disabled under Firewalls and virtual network. When you set this configuration option to Disabled, all public requests to consume Azure AI service resources are denied. Private Endpoint connections will be the exclusive way to access your Azure AI service.
-You should also create a Private Endpoint under Private endpoint connections. When a Private Endpoint is enabled, traffic between the Azure AI service and the target VNet is routed through the Microsoft backbone network using private IP addresses only. The Azure AI service will be assigned with a private IP address from your VNet.
-You should not set the Allow access from field to All networks under Firewalls and virtual network. All networks is a default value that allows access to your Azure AI service’s endpoint from clients on any networks, including the internet.
-You should not add 10.1.1.0/24 under Firewall > Address Range. Firewall IP rules accept public IP addresses only. That is why you will get a warning that the private IP addresses are not supported for the use in IP rules. The firewall option is available only when you set the Allow access from field to Selected Networks and Private Endpoints.
-You should not click Add new VNet, and create a service endpoint for an Azure AI service. Adding a new VNet will create a new Azure VNet with defined IP ranges. In this scenario, we already have an existing VNet where you deployed your new app’s components. The Add new VNet option is available only when you set the Allow access from field to Selected Networks and Private Endpoints.
+
+- Create a Private Endpoint under Private endpoint connections
+- Add 10.1.1.0/24 under Firewall > Address Range
+
+
+(Use) You should set the Allow access from field to Disabled under Firewalls and virtual network. When you set this configuration option to Disabled, all public requests to consume Azure AI service resources are denied. Private Endpoint connections will be the exclusive way to access your Azure AI service.
+
+(Use) You should also create a Private Endpoint under Private endpoint connections. When a Private Endpoint is enabled, traffic between the Azure AI service and the target VNet is routed through the Microsoft backbone network using private IP addresses only. The Azure AI service will be assigned with a private IP address from your VNet.
+
+(Not) You should not set the Allow access from field to All networks under Firewalls and virtual network. All networks is a default value that allows access to your Azure AI service’s endpoint from clients on any networks, including the internet.
+
+(Not) You should not add 10.1.1.0/24 under Firewall > Address Range. Firewall IP rules accept public IP addresses only. That is why you will get a warning that the private IP addresses are not supported for the use in IP rules. The firewall option is available only when you set the Allow access from field to Selected Networks and Private Endpoints.
+
+(Not) You should not click Add new VNet, and create a service endpoint for an Azure AI service. Adding a new VNet will create a new Azure VNet with defined IP ranges. In this scenario, we already have an existing VNet where you deployed your new app’s components. The Add new VNet option is available only when you set the Allow access from field to Selected Networks and Private Endpoints.
 
 #### References
 - [Quickstart: Create a private endpoint - Azure portal - Azure Private Link | Microsoft Learn](https://learn.microsoft.com/en-us/azure/private-link/create-private-endpoint-portal?tabs=dynamic-ip)
@@ -346,32 +414,56 @@ You should not click Add new VNet, and create a service endpoint for an Azure AI
 - [What is a private endpoint? - Azure Private Link | Microsoft Learn](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)
 
 
+
+
+
+
 #### AI Services - Diagnostic Logging
 ### Measure Up
-![[Pasted image 20240129171848.png]]
 
+- Send logs to a repository where they can be enriched with other monitoring logs collected by Azure Monitor to build powerful log queries: *Log Analytics Workspace*
+- Stream data to external log analytics solutions: *Event Hub*
+- Archive logs for audit, static analysis or backup purposes, keeping them in JSON format files: *Blob Storage*
 #### Notes
-You should use a Log Analytics workspace to send logs to a repository where they can be enriched with other monitoring logs collected by Azure Monitor to build powerful log queries. Log Analytics is a flexible tool for log data search and analysis. In a Log Analytics workspace you can combine your Azure AI Services logs with other logs and metrics data collected by Azure Monitor, use Kusto query language to analyze your log data and also leverage other Azure Monitor capabilities such as alerts and visualizations.
-You should use Event Hub to stream data to external log analytics solutions. Event Hub can receive, transform and transfer millions of events per second. With Event Hub, you can stream real-time logs and metrics from your Azure AI Services to external systems such as Security Information and Event Management (SIEM) systems or third-party analytics solutions.
-You should use Azure Blob storage to archive logs for audit, static analysis or backup purposes, keeping them in JSON format files. Blob storage is optimized for storing big volumes of unstructured data. With Blob storage you can keep your logs in a very granular format by the hour or even minutes, to assist with a potential investigation of specific incidents reported for your Azure AI Services.
+(Use) You should use a *Log Analytics workspace* to send logs to a repository where they can be enriched with other monitoring logs collected by Azure Monitor to build powerful log queries. Log Analytics is a flexible tool for log data search and analysis. In a Log Analytics workspace you can combine your Azure AI Services logs with other logs and metrics data collected by Azure Monitor, use Kusto query language to analyze your log data and also leverage other Azure Monitor capabilities such as alerts and visualizations.
+
+(Use) You should use *Event Hub* to stream data to external log analytics solutions. Event Hub can receive, transform and transfer millions of events per second. With Event Hub, you can stream real-time logs and metrics from your Azure AI Services to external systems such as Security Information and Event Management (SIEM) systems or third-party analytics solutions.
+
+(Use) You should use *Azure Blob storage* to archive logs for audit, static analysis or backup purposes, keeping them in JSON format files. Blob storage is optimized for storing big volumes of unstructured data. With Blob storage you can keep your logs in a very granular format by the hour or even minutes, to assist with a potential investigation of specific incidents reported for your Azure AI Services.
 #### References
 - [Enable diagnostic logging - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/diagnostic-logging)
 - [Azure AI Search monitoring data reference | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/monitor-azure-cognitive-search-data-reference)
 
-AI Solutions - Endpoints
+
+
+
+
+
+
+### AI Solutions - Endpoints
 ;OpenAI endpoint accessing Keyvault.  Cx accidentally exposes repo to git and key is compromised.
-#### Measure Up
-![[Pasted image 20240129173017.png]]
+
+You are managing your company’s AI solution, which is integrated with an Azure OpenAI endpoint. In line with corporate security policies, you have enabled a customer-managed key named key-aoai-123 in Azure Key Vault named keyvault-123 and associated it with your Azure OpenAI resource named aoai-123.
+One of your developers accidentally exposed the customer-managed key by including it in a configuration file and pushing to a public Git repository. To mitigate the risk, you need to create a new version of compromised key using an Azure command-line interface (CLI) command.
+Complete the Azure CLI command? (Drop list)
 
 #### Notes
 The complete Azure CLI command should be as follows:
+```text
 az keyvault key rotate --name key-aoai-123 --vault-name keyvault-123
-You should use the keyvault base command. The az keyvault command allows you to manage Azure Key Vault’s keys, secrets, and certificates.
-You should use the rotate operation to rotate the relevant keys in Azure Key Vault. This operation will generate a new version of the key and return its URI. You would then need to update your Azure OpenAI resource to use URI of the new key version.
-You should use key-aoai-123 as a value for the -name parameter and keyvault-123 as a value for the --vault- name parameter. The --name parameter expects the key name as its value, while the --vault-name parameter is used to specify the Azure Key Vault’s name.
-You should not use the cognitiveservices or ml base commands. These are used to manage Azure Cognitive Services accounts and Azure Machine Learning resources respectively. In this scenario, you are asked to create a new version of the compromised key, and that is why you should perform a key rotate operation in Azure Key Vault.
-You should not use the random or recover operations to rotate keys in Azure Key Vault. The random operation can be used to get random bytes from hardware security module (HSM). Number of bytes is specified by the value of the --count parameter. The recover operation can be used to recover deleted keys if Azure Key Vault or HSM have the soft-delete option enabled.
-You also should not use aoai-123. The az keyvault key rotate CLI command requires the names of Azure Key Vault and the relevant key, not the name of the Azure OpenAI resource.
+```
+
+(Use) You should use the keyvault base command. The az keyvault command allows you to manage Azure Key Vault’s keys, secrets, and certificates.
+
+(Use) You should use the rotate operation to rotate the relevant keys in Azure Key Vault. This operation will generate a new version of the key and return its URI. You would then need to update your Azure OpenAI resource to use URI of the new key version.
+
+(Use) You should use key-aoai-123 as a value for the -name parameter and keyvault-123 as a value for the --vault- name parameter. The --name parameter expects the key name as its value, while the --vault-name parameter is used to specify the Azure Key Vault’s name.
+
+(Not) You should not use the cognitiveservices or ml base commands. These are used to manage Azure Cognitive Services accounts and Azure Machine Learning resources respectively. In this scenario, you are asked to create a new version of the compromised key, and that is why you should perform a key rotate operation in Azure Key Vault.
+
+(Not) You should not use the random or recover operations to rotate keys in Azure Key Vault. The random operation can be used to get random bytes from hardware security module (HSM). Number of bytes is specified by the value of the --count parameter. The recover operation can be used to recover deleted keys if Azure Key Vault or HSM have the soft-delete option enabled.
+
+(Not) You also should not use aoai-123. The az keyvault key rotate CLI command requires the names of Azure Key Vault and the relevant key, not the name of the Azure OpenAI resource.
 
 #### References
 - [Azure OpenAI Service encryption of data at rest - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/encrypt-data-at-rest)
@@ -383,31 +475,44 @@ You also should not use aoai-123. The az keyvault key rotate CLI command require
 ### AI - Anomaly Detector
 #### Notes
 Know the differences between univariate and multivariate anomaly detection.  Read the references.  Notice how it can be used without the need for machine learning knowledge or labeled data.  This was on the test but the question isn't even close to measure up so understand the use case.
-#### Measure Up
-![[Pasted image 20240129173833.png]]
-You should use Streaming Detection to monitor credit card transactions in real-time for fraud detection. In this scenario, the data is streaming in real-time and you need to detect anomalies as they occur. Therefore, Streaming Detection allows real-time anomaly detection.
-You should use Batch Detection to analyze historical sales data for periods of unusually high or low sales. Batch Detection allows the analysis of an entire dataset with historical time series data to detect potential abnormalities.
-You should use Change Point Detection to identify significant changes in network traffic patterns, indicating potential cyberattacks. The Change Point Detection feature helps to identify points where the data trends change significantly. Therefore, it is the most appropriate feature of the Univariate Anomaly Detector to detect signs of potential cyberattacks in historical network traffic data records.
+
+- Monitoring credit card transactions in real-timefor fraud detection: *Streaming Detection*
+- Analyzing historical sales data for periods of unusually high or low sales: *Batch detection*
+- Identifying significant changes in network traffic patterns, indicating potential cyberattacks: *Change Point Detection*
+
+(Use) You should use *Streaming Detection* to monitor credit card transactions in real-time for fraud detection. In this scenario, the data is streaming in real-time and you need to detect anomalies as they occur. Therefore, Streaming Detection allows real-time anomaly detection.
+
+(Use) You should use *Batch Detection* to analyze historical sales data for periods of unusually high or low sales. Batch Detection allows the analysis of an entire dataset with historical time series data to detect potential abnormalities.
+
+(Use) You should use *Change Point Detection* to identify significant changes in network traffic patterns, indicating potential cyberattacks. The Change Point Detection feature helps to identify points where the data trends change significantly. Therefore, it is the most appropriate feature of the Univariate Anomaly Detector to detect signs of potential cyberattacks in historical network traffic data records.
 
 #### References
 - [Best practices when using the Anomaly Detector univariate API - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/ai-services/anomaly-detector/concepts/anomaly-detection-best-practices)
 - [What is Anomaly Detector? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/ai-services/anomaly-detector/overview)
 
 
+
+
+
+
+
 ### AI Anomaly Detection-Accuracy reduce false positives
 
 #### Notes
-You should use both isAnomaly and severity fields in the response to sift out anomalies that are not severe. While the isAnomaly field in the response from Azure AI Anomaly Detector API indicates if a point is considered an anomaly, it can lead to false positives if used alone. To reduce false positives, it is recommended to also consider the severity field in the response to sift out anomalies that are not severe.
+(Use) You should use both *isAnomaly* and *severity fields* in the response to sift out anomalies that are not severe. While the isAnomaly field in the response from Azure AI Anomaly Detector API indicates if a point is considered an anomaly, it can lead to false positives if used alone. To reduce false positives, it is recommended to also consider the *severity field* in the response to sift out anomalies that are not severe.
 
-You should not consider a data point as an anomaly only if the severity field value is equal to zero. The severity field value indicates the severity of an anomaly, with higher values highlighting more severe anomalies. Therefore this option would not be effective, as your solution would miss all actual anomalies.
+(Not) You should not consider a data point as an anomaly only if the severity field value is equal to zero. The severity field value indicates the severity of an anomaly, with higher values highlighting more severe anomalies. Therefore this option would not be effective, as your solution would miss all actual anomalies.
 
-You should not decrease the value of the slidingWindow training API parameter to use the lowest possible value. The slidingWindow training API parameter determines the segment of data points for anomaly detection. Setting this to the lowest possible value could make it harder to detect anomalies, as the model would become more sensitive to minor data fluctuations.
+(Not) You should not decrease the value of the slidingWindow training API parameter to use the lowest possible value. The slidingWindow training API parameter determines the segment of data points for anomaly detection. Setting this to the lowest possible value could make it harder to detect anomalies, as the model would become more sensitive to minor data fluctuations.
 
-You should not move CSV data files into /year month day / sub-folders of a zip file to define date hierarchy. The data files inside sub-folders of a zip file are ignored during training and inference processes. Therefore, this option may compromise model accuracy.
+(Not) You should not move CSV data files into /year month day / sub-folders of a zip file to define date hierarchy. The data files inside sub-folders of a zip file are ignored during training and inference processes. Therefore, this option may compromise model accuracy.
 #### References
 - [Best practices for using the Multivariate Anomaly Detector API - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/anomaly-detector/concepts/best-practices-multivariate)
 - [Streaming inference with trained model - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/anomaly-detector/how-to/streaming-inference)
 - [What is Anomaly Detector? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/anomaly-detector/overview)
+
+
+
 
 
 ### AI Metrics Advisor
@@ -436,6 +541,9 @@ You should not create an Anomaly Detector resource in the Azure portal or get th
 
 
 
+
+
+
 ### AI Content Saftey Studio
 
 #### Notes
@@ -461,7 +569,11 @@ You should not identify moderating video content. Currently, Azure AI Content Sa
 - [What is Azure Content Moderator? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/content-moderator/overview)
 
 
-#### AI Content Saftey-Image Moderation
+
+
+
+
+#### AI Content Safety-Image Moderation
 
 #### Notes
 I hope I don't see this one again because its so vague.  Exhibit shows a failed result score and you determine WHY it failed.
@@ -473,6 +585,9 @@ You can export your filter configuration as sample code in Python, Java, and Ctt
 #### References
 - [What is Azure AI Content Safety? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview)
 - [Quickstart: Content Safety Studio - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/studio-quickstart)
+
+
+
 
 
 ### AI Content Personalization
@@ -525,6 +640,10 @@ You should not use ImageType. ImageType is a feature type that can be assigned t
 - (API Def, swagger) [Cognitive Services APIs Reference (microsoft.com)](https://westcentralus.dev.cognitive.microsoft.com/docs/services/computer-vision-v3-2/operations/56f91f2e778daf14a499f21b)
 
 
+
+
+
+
 ### Computer Vision API
 
 #### Measure Up
@@ -549,14 +668,36 @@ or https://uksouth.api.cognitive.microsoft.eom/vision/v3.1/generateThumbnail. Bo
 - [Configure custom domain name for Azure API Management instance - Azure API Management | Microsoft Learn](https://learn.microsoft.com/en-us/azure/api-management/configure-custom-domain?tabs=custom)
 
 
+
+
+
 ### Computer Vision
-#### Measure Up
+
 You build a new computer vision app. Your app integrates with the Azure AI Vision API to enable cognitive image processing.  You need to complete the code for a method that returns a taxonomy-based classification of your image’s content. How should you complete the code? 
 
-![[Pasted image 20240129191032.png]]
+```text
+public static async Task AnalyzeImageUrl( **ComputerVisionClient** client, string imagellrl)
+{
+	List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
+	
+	{VisualFeatureTypes.Categories, VisualFeatureTypes.Description, VisualFeatureTypes.Tags}; 
+	
+	Console.WriteUne($"Processing the image {Path.GetFileName(imageUrl)}...");
+	
+	ImageAnalysis results = await client.AnalyzeImageAsync(imageUrl, visualFeatures: features);
+	
+	foreach (var item in results. **Categories** )
+	{
+	Console.WriteLine($'Tmage classified as {item.Name} with confidence {item.Score}");
+	}
+}
+```
+
 #### Notes
-You should use *ComputerVisionClient*. ComputerVisionClient is a class in the Image Analysis .NET SDK that you should instantiate and use for image analysis operations.
-You should also use *Categories.* The Categories visual feature type helps you to extract taxonomy-based categories detected in an image, for example animaLdog or outdoor_house.
+
+(Use) You should use *ComputerVisionClient*. ComputerVisionClient is a class in the Image Analysis .NET SDK that you should instantiate and use for image analysis operations.
+
+(Use) You should also use *Categories.* The Categories visual feature type helps you to extract taxonomy-based categories detected in an image, for example animaLdog or outdoor_house.
 
 (Not) You should not use ComputerVisionClientExtensions. ComputerVisionClientExtensions is a class in the Image Analysis .NET SDK that contains additional methods for the ComputerVisionClient class such as ListModelsAsync, ReadAsync, TaglmageAsync and others. For your image analysis, you require an instance of a ComputerVisionClient class only.
 
@@ -572,16 +713,45 @@ You should not use Description. With the Description visual feature, the Azure A
 - [Content tags - Azure AI Vision - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-tagging-images)
 
 
-### Computer Vision
-#### Measure Up
-![[Pasted image 20240129191449.png]]
+### AI Services - Computer Vision
+You build a new computer vision app. Your app integrates with the Azure AI Vision API. You need to complete the code for a method that extracts visible text from images.
+Complete the code (Drop list)
+
+```text
+public static async Task ReadFileOCR(ComputerVisionClient client, string urIFile) {
+	var textHeaders = await client.ReadAsync(urlFile); 
+	string operationLocation = textHeaders.OperationLocation; 
+	string operationld = operationLocation.Substring(operationLocation.Length - 36); 
+
+	ReadOperationResult results;
+	
+	Console.WriteLine($"Extracting OCR text from image {Path.GetFileName(urlFile)}..."); 
+	do {
+
+	results = await client. **GetReadResultAsync** (Guid.Parse(operationld));
+	}
+	
+	while ((results.Status == OperationStatusCodes.Running
+		results.Status == OperationStatusCodes. **NotStarted** ));
+
+	var textUrIFileResults = results.AnalyzeResuIt.ReadResults;
+	
+	foreach (ReadResult page in textUrIFileResults) {
+		foreach (Line Read Result in page.Lines) { Console.Writeüne(line.Text); }
+	}
+}
+```
 
 #### Notes
+- *GetReadResultAsync
+- *NotStarted*
+
 Do not memorize the answer.  Look closely at the script.  The portions will likely be different from what I recall on the exam.  Screenshot will do you no good.
 
-You should use *GetReadResultAsync. GetReadResultAsync* is a method of the
+(Use) You should use *GetReadResultAsync. GetReadResultAsync* is a method of the
 ComputerVisionClientExtensions class that returns optical character recognition (OCR) results of the read operation after processing the visible text in the image.
-You should also use NotStarted. While the loop in your code already has a check for the Running status, for the read operations to remain active, another check should be included for the *NotStarted* status. This ensures that the loop is not aborted when you initiate the class and still waits for the OCR read operation to proceed.
+
+(Use) You should also use *NotStarted*. While the loop in your code already has a check for the Running status, for the read operations to remain active, another check should be included for the *NotStarted* status. This ensures that the loop is not aborted when you initiate the class and still waits for the OCR read operation to proceed.
 
 (Not) You should not use DetectObjectAsync. DetectObjectAsync is a method of the
 ComputerVisionClientExtensions class that returns results of the object detection operation after the analysis of the given image. In this scenario, you require OCR results.
@@ -597,20 +767,28 @@ ComputerVisionClientExtensions class that returns results of the object detectio
 - [OperationStatusCodes Enum (Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models) - Azure for .NET Developers | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.cognitiveservices.vision.computervision.models.operationstatuscodes?view=azure-dotnet)
 - [ComputerVisionClient Class (Microsoft.Azure.CognitiveServices.Vision.ComputerVision) - Azure for .NET Developers | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.cognitiveservices.vision.computervision.computervisionclient?view=azure-dotnet)
 
-### AI Vision Service
+
+
+
+
+
+
+### AI Services - AI Vision
 
 #### Measure Up
 You are using Azure AI Vision service to manage media assets, and you plan to integrate and extract text from various image datasets for your organization. You plan to parse these datasets through the Azure AI Vision Read API and perform Optical Character Recognition (OCR).
 You need to identify the prediction image datasets that can be analyzed using the Azure AI Vision model. Which three datasets should you choose? Each correct answer presents a complete solution.
 
-![[Pasted image 20240129192453.png]]
-
 #### Notes
-You should choose JPEG and PNG image format datasets with images that have a maximum size of 3 megabytes (MB). The Azure AI Vision Read call supports both JPEG and PNG formats as well as GIF and BMP formats, with the image file size being less than 4 (MB).
+- JPEG and PNG image format datasets with images that have a maximum size of 3 MB
+- GIF images with a size of 2 MB and a dimension of 200 x 300 pixels
+- A BMP image dataset with dimensions greater than 100 x 100 pixels
 
-You could also choose a BMP image dataset with dimensions greater than 100 x 100 pixels. The BMP format is supported, and the Azure AI Vision's Read API requires the dimensions of the image to be greater than 50 x 50 and at most 10000 x 10000 pixels.
+(Use) You should choose JPEG and PNG image format datasets with images that have a maximum size of 3 megabytes (MB). The Azure AI Vision Read call supports both JPEG and PNG formats as well as GIF and BMP formats, with the image file size being less than 4 (MB).
 
-You could also choose GIF images with a size of 2 MB and a dimension of 200 x 300 pixels. In the Azure AI Vision's Read API call, the image size should not be greater than 4 MB and the dimension should be greater than 50 x 50 pixels.
+(Use) You could also choose a BMP image dataset with dimensions greater than 100 x 100 pixels. The BMP format is supported, and the Azure AI Vision's Read API requires the dimensions of the image to be greater than 50 x 50 and at most 10000 x 10000 pixels.
+
+(Use) You could also choose GIF images with a size of 2 MB and a dimension of 200 x 300 pixels. In the Azure AI Vision's Read API call, the image size should not be greater than 4 MB and the dimension should be greater than 50 x 50 pixels.
 
 (Not) You should not choose a high-resolution image dataset with each image having a minimum size of 100 MB. In the Azure AI Vision's Read API call, the image size should not be greater than 4 MB.
 
@@ -622,7 +800,10 @@ You could also choose GIF images with a size of 2 MB and a dimension of 200 x 30
 
 
 
-### AI Vision
+
+
+
+### AI Service - AI Vision
 #### Measure Up
 You develop an application that uses Azure AI Vision to find commercial logos and famous people in images.  You create an Azure AI Vision service *named cv1* in the *West US* region.
 You want to test the cognitive service from the command line.  How should you create your request?
@@ -660,6 +841,9 @@ https ://cvl.cognitiveservices.azure.com/vision/v3.2/analyze? visualFeatures=Bra
 - (key) [Domain-specific content - Azure AI Vision - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/concept-detecting-domain-content)
 
 
+
+
+
 ### AI Vision-Image Analysis
 
 #### Measure Up
@@ -693,7 +877,9 @@ Finally, you should generate and run the curl command using the Detect Objects A
 #### Measure Up
 You are analyzing images using the Azure AI Vision service.  You need to determine which visualFeatures to use for different requirements.  To answer, drag the appropriate visualFeature to each requirement. A visualFeature may be used once, more than once, or not at all.
 
-![[Pasted image 20240129195602.png]]
+- To generate a list of words for the recognizable objects in the image: *Tags*
+- To describe the image using a hierarchical taxonomy of buildings, food, outdoor, and animals: *Categories
+- To detect if the image contains violent scenes: *Adult*
 
 #### Notes
 (Use) You should use Tags to generate a list of words for the recognizable objects in the image. The Tags visualFeature tags the image with a detailed list of words related to the image content. Azure AI Vision can tag the image from thousands of recognizable objects, living beings, scenery, and actions. The API returns a simple list of the words and confidence levels.
@@ -768,6 +954,11 @@ Finally, you should train the model. To do this, you should press the Train butt
 - [Use prediction endpoint to programmatically test images with classifier - Custom Vision - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/ai-services/custom-vision-service/use-prediction-api)
 
 
+
+
+
+
+
 ### Custom Vision - Image Classification
 
 #### Notes
@@ -803,6 +994,11 @@ You train a new image classification model in the Custom Vision portal. You plan
 - [Tutorial: Run TensorFlow model in Python - Custom Vision Service - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/ai-services/custom-vision-service/export-model-python)
 - [Unit test Python code with Test Explorer features - Visual Studio (Windows) | Microsoft Learn](https://learn.microsoft.com/en-us/visualstudio/python/unit-testing-python-in-visual-studio?view=vs-2019)
 - [Manage Python package dependencies - Visual Studio (Windows) | Microsoft Learn](https://learn.microsoft.com/en-us/visualstudio/python/managing-required-packages-with-requirements-txt?view=vs-2019)
+
+
+
+
+
 
 
 ### Custom Vision - Bird detection
@@ -881,6 +1077,12 @@ CustomVisionTrainingClientExtensions class that allows you to export your traine
 - [CustomVisionTrainingClientExtensions.UnpublishIteration Method (Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training) - Azure for .NET Developers | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.cognitiveservices.vision.customvision.training.customvisiontrainingclientextensions.unpublishiteration?view=azure-dotnet)
 
 
+
+
+
+
+
+
 ### Computer Vision
 You are working for a nature reserve park to help in detecting the *presence* and *location* of animals of interest in the park, such as white tigers, lions, and pandas. The reserve has a security system with over 400 cameras covering the complete area of the park. The cameras take *images every minute*, storing them in a .jpeg format.  You need to use the Azure AI service to create your own model and extract information from these images.  Which three actions should you perform in sequence and order?
 
@@ -908,6 +1110,10 @@ Finally, you should publish your model iteration and retrieve the prediction URL
 
 
 
+
+
+
+
 ### Custom Vision Classification Model
 You have trained a Custom Vision classification model.
 You need to retrieve the metrics that show the accuracy of the model. Which Rest API method should you use?
@@ -931,14 +1137,18 @@ You should use GetlterationPerformance. GetlterationPerformance returns performa
 #### Notes
 You are helping the customer support department of a global health insurance company to extract useful information from the daily customer queries and insurance claim requests that they receive through a bot.  You need to add additional functionality to your bot using Azure AI services to resolve the different requirements.
 
-![[Pasted image 20240129210156.png]]
+- Understand and respond to customer voice inputs: *Speech Service*
+- Process claim form images to extract customer information: *Custom Vision*
+- Flag undesirable or offensive text or images: *Content Moderator*
 
-The requirement to understand and respond to customer voice inputs is fulfilled by the Speech service. Speech-enabled features can be added to an existing application using the Speech service, including various functionalities like speech translation, speech-to-text, text-to-speech, speaker recognition, etc.
+#### Notes
+The requirement to understand and respond to customer voice inputs is fulfilled by the *Speech service*. Speech-enabled features can be added to an existing application using the Speech service, including various functionalities like speech translation, speech-to-text, text-to-speech, speaker recognition, etc.
 
 The real-time transcription of audio into text using the Speech service will enable customers to have a conversation with the bot by speaking.
 
-The requirement to process claim form images to extract customer information is fulfilled by the Computer Vision solution. The Azure AI Vision service provides you with access to advanced computer vision algorithms for processing images and returning information. The Image Analysis API can be used to extract customer information from the claim form images.
-The requirement to flag undesirable or offensive text or images is fulfilled by the Content Moderator service. The Azure AI Content Moderator service is designed to handle potentially offensive, risky, or undesirable content. The service scans text, image, and video to apply content flags automatically powered by an AI content moderation engine. It also provides an online moderator environment for a team of human reviewers.
+The requirement to process claim form images to extract customer information is fulfilled by the *Computer Vision* solution. The Azure AI Vision service provides you with access to advanced computer vision algorithms for processing images and returning information. The Image Analysis API can be used to extract customer information from the claim form images.
+
+The requirement to flag undesirable or offensive text or images is fulfilled by the *Content Moderator* service. The Azure AI Content Moderator service is designed to handle potentially offensive, risky, or undesirable content. The service scans text, image, and video to apply content flags automatically powered by an AI content moderation engine. It also provides an online moderator environment for a team of human reviewers.
 
 (Not) You should not select the Language service. The Azure AI Language service provides Natural Language Processing (NLP) features for text mining and text analysis, including sentiment analysis, opinion mining, key phrase extraction, language detection, and named entity recognition. Although these features are very useful, none of them satisfy any of the given requirements.
 
@@ -958,8 +1168,6 @@ The requirement to flag undesirable or offensive text or images is fulfilled by 
 ### AI Services - Patent Infringement
 You are working for an intellectual property law firm. You need to protect clients' trademarks by looking for images that infringe the trademarks.  You build an application to check a set of images. You plan to use Azure AI Services to assist you.  You need to create a resource that you can use to identify images that contain logos that potentially infringe trademarks.  Which five actions should you perform in sequence and order?
 #### Measure Up
-![[Pasted image 20240129210722.png]]
-
 #### Notes
 You should perform the following actions in order:
 1.	Create a Custom Vision resource.
@@ -1047,8 +1255,12 @@ Console.WriteLine("Current iteration published !\n");
 You plan to use Azure AI Video Indexer to analyze the content of your custom videos.
 You upload videos to the Azure AI Video Indexer website. You want to segment your videos into time-related units based on each video’s structural and semantic properties.  You need to determine what units can be detected by the Azure AI Video Indexer. Matchbox UI.
 
-#### Measure Up
-![[Pasted image 20240129212314.png]]
+- Consecutive frames taken from the same camera at the same time: *Shots*
+- Representative frames selected from the entire video based on aesthetic
+properties: *Keyframes*
+- Single events composed of a series of semantically related consecutive
+shots: *Scenes*
+
 #### Notes
 *Shots* are the consecutive frames taken from the same camera at the same time. Shots are determined by the changes in the visual content such as sudden or gradual transitions in the color scheme of adjoining frames. Each shot has a start and an end time. Shots metadata also includes the list of keyframes within that shot.
 
@@ -1059,6 +1271,9 @@ You upload videos to the Azure AI Video Indexer website. You want to segment you
 #### Reference
 - [Azure AI Video Indexer scenes, shots, and keyframes | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-video-indexer/scenes-shots-keyframes)
 - [What is Azure AI Video Indexer? | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-video-indexer/video-indexer-overview)
+
+
+
 
 
 
@@ -1616,9 +1831,15 @@ Complete the API call.
 You are developing an app that takes simplified Chinese text and converts it into English. The translated text must be transliterated into the Latin script.  How should you complete the API call? 
 
 #### Notes
+Easy way to remember this no matter what the language in the question, the gist is:
 - from
 - to
 - toScript
+
+The source will start some stuff like this:
+```text
+https://a pi. cognitive, microsofttransla to r.com/tra nslate?api-version=3.0&
+```
 
 The API call should be completed as follows:
 ```bash
@@ -1636,7 +1857,949 @@ https ://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=zh
 - [Language support - Translator - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/translator/language-support)
 
 
-## Stopping Point --- QQ 85/130
+
+
+### Speech Service - Custom Model
+You are developing a custom translation application for a customer who wants to translate medical articles from French to English.  You have prepared a set of parallel documents with aligned medical terminology sentences in both languages. You want to use the Azure AI Translator service to build the translation model.  You create an Azure AI Translator resource. You need to build, train, and publish your custom translation model in a Custom Translator portal.
+Which five steps should you follow to accomplish this task after creating a workspace? (Actions and order matter)
+
+#### Notes
+All the work related to the development of translation systems is done in the Customer Translator's workspaces. A workspace is a place to manage projects, models and documents. After creating the workspace, you should perform the following steps in order:
+1.	Create a project.
+2.	Upload parallel documents.
+3.	Train your model.
+4.	Test your model.
+5.	Publish your model.
+
+(1) First, you should create a project. You create projects in Custom Translator for the target language pairs. A Custom Translator project logically groups relevant models, documents, and tests.
+
+(2) The next step is to upload parallel documents. Parallel documents can be used to train a translation system from/to each paired language. You upload parallel documents by adding them to your Custom Translator project.
+
+(3) Then, you should train your model. You can now choose your uploaded documents and start training a custom translation model within your project. If you did not provide separate tuning and testing document sets, they will be created and separated from your training document sets.
+
+(4) Once the model’s training is completed, you should test your model. You can run the testing process and then evaluate the translation generated by the trained model against the reference translation in the allocated testing document set.
+
+(5) Finally, you should publish your model. You can choose a target region to deploy your trained custom translation model. Publishing will make your model accessible through the Translator API endpoints.
+
+You should not create an audio tuning file or export a tuned audio. These steps are required for speech synthesis in Azure AI Speech’s Audio Content Creation tool. Audio Content Creation is a no-code tool that allows you to fine-tune text-to-speech and adapt them for specific use-case scenarios.
+
+#### Reference
+- [What is Custom Translator? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/translator/custom-translator/overview)
+- [Quickstart: Build, deploy, and use a custom model - Custom Translator - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/translator/custom-translator/quickstart)
+- [Audio Content Creation - Speech service - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/how-to-audio-content-creation)
+
+
+
+
+### AI Services - Language Service
+You are developing a web application that will display published live content in multiple languages for an international AI event.
+You want to use the Azure AI Translator service to translate messages from English to Simplified Chinese and French. You need to write a curl command that sends a translation request to the Translator API.
+
+#### Notes
+You should use:
+```text
+curl -X POST "https ://api.cognitive.microsofttranslator.com/translate? api-version=3.0&to=zh-Hans&to=fr" -H "Ocp-Apim-Subscription-Key: <YOUR_API_KEY>" -H "Content-Type: application/json; charset=UTF-8" -d " [ { 'Text' : 'We are pleased to invite you to the AI Summit. Our virtual event will showcase the latest innovations and best practices in the field of AI.'}]"
+```
+
+This curl command correctly specifies the target languages as zh-Hans for Simplified Chinese and fr for French. It does not explicitly specify the source language, which is derived through the auto-detection of the input text’s language. IMPORTANT KEY: You need to leave the default auto-detect source language or it will only use the one.  Gotta let it discover it.
+
+#### Reference
+- [Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/overview)
+- [Entity components in Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/concepts/entity-components)
+
+
+
+### AI Services - Language Service
+You are developing a chatbot using the Conversational Language Understanding (CLU) service. You want to define entities that will be relevant to the chat user’s intents.  You need to determine which entity components to use for each entity.  Match the entity to the description.
+
+#### Notes
+This is common sense if you look at the definitions.  Don't over think this.  The *italics* are the keys.
+
+You should use the *List entity* component to perform an exact text comparison with a fixed set of values. The List component type can be used, for example, to capture product names, as it can perform an exact text match against the list of words you provide as synonyms.
+
+You should use the *Prebuilt entity* component to automatically detect common types from utterances. CLU provides a library of common types such as phone numbers, e-mails and numbers. The Prebuilt component may capture, for example, the quantity by detecting numbers and units from the utterance.
+
+You should use the *Learned entity* component to train a machine learning model on the entity tags you label your utterances with. The model will then predict the entity’s place based on the context within the given utterance. For example, it may learn from the context of the utterance and extract information about the customer order.
+#### Reference
+- [Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/overview)
+- [Entity components in Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/concepts/entity-components)
+
+
+
+
+
+### AI Services - Language Service
+You are developing an e-commerce chatbot using the Conversational Language Understanding (CLU) service.  You have built a schema for your CLU project. You need to upload a labeled utterance file.  This is a Yes/No type question.  
+
+- The JSON file contains two utterances with two different intents.
+- "I need to remove Doo from my cart" is an intent.
+- The offset value indicates a product's position in an offline e-commerce catalog.
+
+You have defined the JSON:
+```text
+[
+	{
+		"text": "I love this Coo, it is exactly what I was looking for", 
+		"language": "en-us",
+		"intent": "Review",
+		"entities": [
+			{
+				"category": "ProductName",
+				"offset": 12,
+				"length": 3
+			}
+		]
+	},
+	{
+		"text": "I need to remove Doo from my cart",
+		"language": "en-us",
+		"intent": "RemoveFromCart",
+		"entities": [
+			{
+				"category": "ProductName",
+				"offset": 17,
+				"length": 3
+			}
+		]
+	}
+}
+```
+#### Notes
+- (Y) The JSON file contains two utterances with two different intents.
+- (N) "I need to remove Doo from my cart" is an intent.
+- (N) The offset value indicates a product's position in an offline e-commerce catalog.
+
+(YES) The JSON file contains two utterances with different intents. Utterances are set as the values of the text field. These two utterances have different intents: Review and RemoveFromCart respectively.
+
+(NO) "I need to remove Doo from my cart" is not an intent. Instead, it is an utterance. An utterance is a sentence or a query that you receive from the user as input for your chatbot to interpret, and that in this example, you associate with the RemoveFromCart intent.
+
+(NO) The offset value does not indicate a product’s position in an offline e-commerce catalog. This indicates an inclusive starting character position for each entity in the given utterance. Coo starts at position 12, while Doo starts at position 17.
+
+#### Reference
+- [Conversational language understanding best practices - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/concepts/best-practices)
+- [How to tag utterances in Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/how-to/tag-utterances?tabs=portal)
+- [conversational language understanding data formats - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/concepts/data-formats)
+
+
+
+
+
+### AI Services - Language Service
+You are developing a command-and-control application using the conversational language understanding (CLU) feature of Azure AI Language. You have collected and labeled a large amount of utterances.  You need to train your CLU model, ensuring that the model is well balanced and generalizable.
+
+#### Notes
+- Use Manual splitting and ensure adequate representation of intents and entities in the training and testing sets.
+- Introduce casing and punctuation diversity in the training set.
+
+(Use) You should introduce casing and punctuation diversity in the training set. This approach can help you avoid unintended bias in your training set. For example, if all the utterances for a particular intent are in lowercase, your CLU model might associate the lowercase pattern with that intent, instead of being able to handle variations in casing.
+
+(Use) You should also use Manual splitting and ensure adequate representation of intents and entities in the training and testing sets. Adequate representation of intents and entities in both sets can help avoid a skewed or biased distribution of data. This in turn will improve the performance and generalization of your model.
+
+(Not) You should not include large quantities of your favorite intent and very few of other intents. This approach can lead to over-fitting or over-representation of your favorite intent in your training set. As a result, the model would become heavily biased towards a particular intent and not able to generalize well to others.
+
+(Not) You should not use Automatic splitting of data to allocate 80% to testing and 20% to training. This approach can reduce the amount of data available for training of your CLU model, which can affect its accuracy. The recommended percentage split of data is to allocate 80% to training and 20% to testing.
+
+(Not) You should not verify that all utterances in the training set start with a particular phrase. This approach can introduce unintended patterns or biases in your training set. For example, if all the utterances will start with “please”, your model might associate “please” with related intents, instead of being able to handle variations in phrasing.
+
+#### Reference
+- [Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/overview)
+- [How to train and evaluate models in Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/how-to/train-model?tabs=language-studio)
+
+
+
+### AI Services - Language Service
+You are an AI developer at a travel agency. You are developing a chatbot using the conversational language understanding (CLU) feature of Azure AI Language.  You have labeled a large number of utterances. You need to use Language Studio to train and evaluate your CLU model.  What should you do to define which particular utterances belong to the training or testing sets?
+
+#### Notes
+- Let Language Studio split your tagged data automatically according to the percentages you choose.
+
+(Use) You should use a manual split of training and testing data. This option allows you to define which particular utterances should belong to the training set and which to the testing set. As a result, you can ensure that all your intents and entities are adequately represented in both sets.
+
+(Not) You should not customize your model with your data using the Advanced training mode in Language Studio. The Advanced training mode uses machine learning to customize your models and achieve better performance scores for them. This option is not related to data splitting, but instead to data training.
+
+(Not) You should not let Language Studio split your tagged data automatically according to the percentages you choose. The automatic method would split your tagged data between the training and testing sets, based on your percentage. However, you cannot define the split of particular utterances with this option.
+
+(Not) You should not train your models quickly using the Standard training mode in Language Studio. This option uses fast machine learning algorithms to quickly train your CLU model. It supports utterances in English only and allows you to train a model quickly and at no cost.
+#### Reference
+- [Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/overview)
+- [How to train and evaluate models in Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/how-to/train-model?tabs=language-studio)
+
+
+### AI Services - Speech Service
+You are developing an enterprise chatbot that uses a conversational language understanding (CLU) model. Your CLU model is hosted in the US East Azure region. Your company wants to ensure that the chatbot can continue to operate even if there is an outage in US East.
+You need to create a replica of your CLU model in the West Europe Azure region and use it as a fail-over option. You must first create a new resource.
+Which four actions should you perform in sequence to complete the task? To answer, move the appropriate steps from the list of possible actions to the answer area and arrange them in the correct order.
+
+#### Notes
+You should complete the following steps in order:
+1.	Create another Azure AI Language resource in the target geography.
+2.	Export your project metadata and assets.
+3.	Import your project metadata and assets.
+4.	Train and deploy the new model.
+
+(1) You should first create another Azure AI Language resource in the target geography. The new Azure AI Language resource in West Europe will host your conversational language understanding (CLU) project and model, and serve as a fail-over resource in case of a regional outage in US East.
+
+(2) Then, you should export your project metadata and assets. You can use either Language Studio or REST APIs to export your original CLU project as a JSON file. During the export step, you can enable or disable multilingual dataset support in your exported project.
+
+(3) After that, you should import your project metadata and assets. This will create a new CLU project in the target Azure AI Language resource with the same configuration as the original one. If you already have a project with the same name, its data will be replaced with the newly imported metadata and assets.
+
+(4) Finally, you should train and deploy the new model. The import of the CLU project only creates a copy of your original project settings, intents, entities, and utterances. To make the CLU model available for use with the Azure AI Language APIs, you need to train and deploy it.
+
+(Not) You should not create another Azure AI Speech resource in the target geography. Azure AI Speech provides you with speech-to-text and speech-to-speech capabilities. CLU is a feature of Azure AI Language.
+
+(Not) You should not create a Custom Speech project. A Custom Speech project can contain models for real-time speech-to-text, speech translation and batch transcription operations. CLU models reside in Azure AI Language CLU projects.
+
+### Reference
+- [Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/overview)
+- [Back up and recover your conversational language understanding models - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/how-to/fail-over)
+- [What is the Speech service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview)
+- [Create a custom speech project - Speech service - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/how-to-custom-speech-create-project?pivots=speech-studio)
+
+
+
+### AI Service - Language Service | AI Search
+Ricky Bobby is an AI developer for a famous car company; Zesla. Your company wants to build an in-car conversational app that would allow drivers to interact with various car features, such as navigation, radio, and climate control.  You estimate that your app will have 100 intents. You plan to train and deploy one or more conversational language understanding (CLU) models in Azure AI Language Studio and wants to minimize litigation.  You need to select the best approach to design your conversational app.  What would Ricky Bobby do?
+
+#### Notes
+- Develop multiple apps for each feature and connect them with an orchestration app.
+
+(Use) You should develop multiple apps for each feature and connect them with an orchestration app. This approach allows you to decompose your app into several child apps, each serving a specific feature of the car, and connect them with an orchestration app. As each child app will serve a distinct car feature, this approach would also allow faster parallel development of these apps.
+
+(Not) You should not create a suggester to enable autocomplete. A suggester to enable autocomplete can complete a partial input to produce a whole query. While it can improve user experience by reducing the typing effort, it does not help with designing the app structure or logic.
+
+(Not) You should not develop a singular app to handle utterances from all the features of the car. This approach, called flat architecture, does not work well for large apps with more than 50 intents or entities, and the need to serve several features as in this scenario. Besides, you cannot restrict entities to be returned only in specific cases.
+
+(Not) You should not identify and disambiguate the identity of the found entity. A CLU model can use various techniques to identify and disambiguate the entity; for example, by recognizing that jack is a reference to a tool and not a person's name. However, this is independent of the app design approach. Do not be fooled with Ricky and Jack.
+
+#### References
+- [Conversational Language Understanding - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/overview)
+- [When to choose conversational language understanding or orchestration workflow - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/concepts/app-architecture)
+- [Configure a suggester - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/index-add-suggesters)
+- [How to call the entity linking API - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/entity-linking/how-to/call-api)
+
+
+
+### AI Services - OpenAI Service
+You are developing a new AI solution that should produce creative product descriptions for an e-commerce platform.  You need the descriptions to be unique and human-like.  Which Azure service should you use for this development?
+#### Notes
+- Azure OpenAI
+
+It might be good to breeze through the ref link for the list of models in GPT.  You will also find the responsible AI stuff there. These models can be easily adapted to your specific task including but not limited to content generation, summarization, image understanding, semantic search, and natural language to code translation.
+
+(Use) You should use Azure OpenAI. Azure OpenAI is a Generative AI service that provides access to powerful AI models like GPT-4, which are trained on a large amount of data and can generate creative content. Using techniques of prompt engineering, you can instruct Azure OpenAI models to produce unique and humanlike content; for example, personalized product descriptions for an e-commerce platform.
+
+(Not) You should not use Azure AI Document Intelligence. Azure AI Document Intelligence services allows you to develop smart document processing solutions. You can use prebuilt models to extract data from invoices, receipts, business cards and pretrained document types, or you can train your own models to process custom document formats.
+
+(Not) You should not use Azure AI Immersive Reader. Azure AI Immersive Reader is an Azure AI service, which makes reading easier and more accessible by displaying pictures for common words, reading content aloud, translating it in real time or splitting words into easier readable syllables.
+
+(Not) You should not use Azure AI Language. Azure AI Language is an Azure AI service that provides natural language processing features such as language detection, sentiment analysis, summarization, key phrase extraction and others for understanding and analyzing text. However, it cannot produce creative content like Generative AI solutions.
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-GB/azure/ai-services/openai/overview)
+
+
+
+### AI Services - Language Service | Question Answering
+You are developing a new .NET console application that uses the question answering client library to create a natural conversation layer over your data. You want to use the latest compatible version of the question answering .NET client library in your application.
+You need to complete the .NET command line interface (CLI) command to meet the goal.
+Complete the code (drop list)
+
+#### Notes
+- dotnet *add*  package Azure.AI. *Language* .QuestionAnswering
+
+KEY: Be able to look through the NOT sections and interpret a new variation of a question based on those.  The real test bank is much larger than Measure Up.
+
+You should use the following command to install the question answering client library for .NET:
+```text
+dotnet add package Azure.AI.Language.QuestionAnswering
+```
+(Use) You should use *add* to form the dotnet add package command. This command adds a package reference to the project file if it does not exist, or updates it to the latest compatible version, if it does.
+
+(Use) You should also use *Language* as a part of the .NET package name. Question answering is a feature of the Azure AI Language service. The .NET question answering client library enables your application to use a conversational question-and-answer functionality over your own data.
+
+(Not) You should not use clean to complete the .NET CLI command. The dotnet clean command is used to clean the output of the previous build. This command cannot add or update references to .NET libraries.
+
+(Not) You should not use pack to complete the .NET CLI command. The dotnet pack command is used to build the .NET project and pack the code into a NuGet package. This command cannot add or update references to .NET libraries.
+
+(Not) You should not use TextAnalytics as a part of the .NET package name. Azure.Al.TextAnalytics is a .NET client library that provides access to cloud-based features for understanding and analyzing text, such as sentiment analysis or key phrase extraction. It does not provide a question answering functionality.
+
+(Not) You should not use Personalizer as a part of the .NET package name. Azure.AI.Personalizer is a .NET client library that provides access to Azure Personalizer functionality, which helps you choose the best content item to show to end users, such as in an online shopping experience. It does not provide a question answering functionality.
+
+#### Reference
+- [Quickstart: Use SDK to create and manage project - custom question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/quickstart/sdk?tabs=windows&pivots=studio)
+- [dotnet add package command - .NET CLI | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-add-package)
+- [NuGet Gallery | Azure.AI.Language.QuestionAnswering 1.1.0](https://www.nuget.org/packages/Azure.AI.Language.QuestionAnswering)
+- [dotnet clean command - .NET CLI | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-clean)
+- [dotnet pack command - .NET CLI | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-pack)
+- [NuGet Gallery | Azure.AI.TextAnalytics 5.3.0](https://www.nuget.org/packages/Azure.AI.TextAnalytics)
+- [NuGet Gallery | Azure.AI.Personalizer 2.0.0-beta.2](https://www.nuget.org/packages/Azure.AI.Personalizer/2.0.0-beta.2)
+
+
+### AI Services - Language Service | Question Answering | Chit Chat
+
+You are developing a chat bot that uses Azure AI Language’s question answering feature to provide answers from your company’s technical knowledge base.  You test the knowledge base in the Language Studio as shown in the Exhibit, but it returns a No answer found message when some questions are phrased differently.  You need to ensure that your solution answers as many related technical questions as possible.  Which *two* actions should you perform? 
+#### Notes
+- Decrease the confidence score value
+- Add alternative questions
+
+(Use) You should add alternative questions. When you test and verify that your question answering solution does not return the correct answer for a particular question, despite it being present in the knowledge base, you can add alternative phrasing to the intended question and answer pair. This action will increase the likelihood of the technical question being answered.
+
+(Use) Alternatively, you could decrease the confidence score value. As we can see in the exhibit, the current threshold is set to 0.7, which means that the question will be answered only when the model has a high confidence in the answer matching the user’s query. If you want to answer as many questions as possible with somewhat related answers, you should decrease the confidence score threshold.
+
+(Not) You should not add more chitchat questions and answers. The chitchat feature does not help with cases where your question answering service cannot find a relevant answer in the knowledge base. Instead, it is intended to add personality to your bot with a pre-built set of common conversational phrases.
+
+(Not) You should not unselect the Include short answer response option. This feature uses deep learning to understand intent and provide a precise short answer from the answer passage. Unselecting this option would force the question answering service to use the long answer passage. It would not increase the coverage as required in this scenario.
+
+(Not) You should not use the RankerType=QuestionOnly in the body of your API request. By default, question answering will search through both questions and answers in the knowledge base. When you set the RankerType to QuestionOnly, you restrict the search to questions only. This functionality may be useful in cases where your knowledge base lists acronyms as questions and their full descriptions as answers.
+
+#### Reference
+- [What is question answering? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/overview)
+- [Confidence score - question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/concepts/confidence-score)
+- [Best practices - question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/concepts/best-practices)
+- [Precise answering using answer span detection - question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/concepts/precise-answering)
+- [Adding chitchat to a custom question answering project - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/how-to/chit-chat)
+
+
+
+
+### AI Services - Language Service | Question Answering | Chat Bot
+You are developing an enterprise conversational bot using Azure AI Language’s question answering feature. Your bot should redirect end users to different web resources depending on their working relationship with your company.
+You test new question answer pairs in Language Studio as shown in the exhibit.
+
+True Statement?
+- (Yes) You are testing a guided conversation with multiturn prompts
+- (Yes) I'm a customer is a follow-up prompt
+- (No) The I'm a partner prompt can be queried directly
+#### Notes
+(Yes) You are testing a guided conversation with multi-turn prompts. On the right side of the exhibit, the question answer pair about a sales order has three follow-up prompts to clarify whether the user is a partner, customer, or employee. Using a pre-determined conversation flow, your chat bot redirects end users to different web resources using multi-turn context.
+
+(Yes) I’m a customer is a follow-up prompt. The question answer pair about an order has three follow-up prompts. Such a multi-turn flow allows you to guide the user to the required answer.
+
+(No) The I’m a partner prompt cannot be queried directly. As shown in the exhibit, this follow-up prompt has the Show in contextual flow only field selected. That is why chat users will see this follow-up prompt only when the answer to the parent question about the order is returned.
+
+#### Reference
+- [What is question answering? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/overview)
+- [Add guided conversations with multi-turn prompts - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/tutorials/guided-conversations)
+
+
+
+
+
+### AI Service - Language Service | Question Answering
+You are managing your company's e-commerce chatbot, which uses Azure AI Language’s question answering feature.  One of the URL sources of your question answering solution has recently updated its content and you want to reflect those changes in your knowledge base.  You need to retain any manual edits that you have previously made to the question answer pairs of that source. You're a millennial, meet the requirement with minimal effort.
+
+#### Reference
+- Select the URL source in the Manage sources list and select Refresh URL
+
+#### Notes
+KEY: Look at the confidence score chart.  There are questions about the ranges.
+KEY: Look at the When to use Q&A
+KEY: Know what a Project is in this context
+
+(Use) You should select the URL source in the Manage sources list and select Refresh URL. The smart URL refresh functionality in a question answering project allows you to get the latest content from the source URL and update it in your knowledge base with one click. If any content is no longer available in the source, it will also be deleted from the refreshed knowledge base. However, any manually edited question answer pairs will be retained. In some situations, old and new pairs will be merged.
+
+(Not)You should not decrease the confidence score threshold. The confidence score threshold defines how question answering selects the best answer from the knowledge base. Decreasing the confidence score threshold will increase the coverage of questions with somewhat related answers.
+
+(Not) You should not delete the URL source from your project and add it again. This option would require more work in comparison to the smart URL refresh. In addition, deleting and adding the URL source would not retain any manual edits that you have previously made to the question answer pairs of that source.
+
+(Not) You should not edit the question answer pairs manually to match the new content. A manual update is a time-consuming process, which may take longer than necessary due to having to compare and insert relevant question answer pairs. It is also error-prone because of the human factor.
+
+#### Reference
+- [What is question answering? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/overview)
+- [Smart URL refresh - question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/how-to/smart-url-refresh)
+- [Confidence score - question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/concepts/confidence-score)
+
+
+
+
+### AI Service - Language Service | Question Answer
+
+You are developing a chatbot that uses the question answering feature. You want to add question-answer pairs manually to your knowledge base. You need to determine the attributes of each question-answer pair. To answer, move the appropriate attribute to the relevant description. Matchbox UI.
+
+- A way to categorize your question-answer pairs based on various criteria: *Metadata*
+- A feature that helps you determine a path through a knowledge base to reach a desired
+outcome: *Follow Up Prompts*
+- A list of different ways to ask the same question that can improve the search
+accuracy: *Alternative Questions*
+
+#### Notes
+(Use) *Metadata* is a way to categorize your question-answer pairs based on various criteria. Metadata can help you filter your question answer pairs when querying and manage your knowledge base more effectively by tagging your entries with additional information about the source, content, format or purpose of your data.
+
+(Use) *Follow-up prompts* are a feature that helps you determine a path through a knowledge base to reach a desired outcome. Follow-up prompts allow you to guide the user through a series of questions and answers until they arrive at the correct answer.
+
+(Use) *Alternate questions* are a list of different ways to ask the same question that can improve the search accuracy. Alternate questions can help you capture the variations and nuances of natural language to improve the search accuracy and relevance of your question answer pairs.
+
+(Not) You should not use the default answer as an option for any of the provided descriptions. The default answer is used when no answer is found in the knowledge base.
+
+#### Reference
+- [What is question answering? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/overview)
+- [Plan your app - question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/concepts/plan)
+- [Get default answer - custom question answering - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/how-to/change-default-answer)
+
+
+
+
+### AI Services - Language Service |Question Answering | Export Import
+
+You are a data scientist working on a project that involves creating a question answering solution using the Azure AI service.  You have created a knowledge base using the studio user interface (Ul) of the Azure AI service.  You need to export it in a tab-separated value format for further review by the content team.  Which four actions should you perform to meet the requirement? Move the answer boxes around.  Order matters.
+#### Notes
+You should perform the following steps in order:
+1.	Sign in to Language Studio.
+2.	Select Edit knowledge base.
+3.	Click Export questions and answers.
+4.	Click Export as TSV.
+
+(1) You should first sign in to Language Studio. The Azure AI Language Studio allows you to create, edit, test, and deploy knowledge bases using its graphical Ul. You can also perform these tasks programmatically using the Authoring API.
+
+(2) Then, you should select Edit knowledge base. This option allows you to view, modify, and test question- answer pairs in your knowledge base.
+
+(3) Next, you should click on the Export questions and answers menu option. This option allows you to choose the format for the knowledge base’s data export.
+
+(4) Finally, you should click on the Export as TSV menu option. This downloads your knowledge base in a tab-separated value format. A TSV file is a plain text file that uses tabs to separate values.
+
+(Not) You should not click on the Export as Excel menu option. An Excel file is a binary file that can be used to store data in spreadsheets, charts and macros. In this scenario, the requirement is to export data in a TSV text format.
+
+(Not) You should not click on the Import questions and answers menu option. This option allows you to add question-answer pairs to your knowledge base from the provided TSV or Excel files.
+
+(Not) You should not select Deploy knowledge base. Deploying a knowledge base allows you to create an endpoint for querying and answering questions in your custom applications, like chatbots.
+
+(Not) You should not sign in to the Speech Studio. The Azure AI Speech Studio can be used to create and test your speech-to-text, text-to-speech, speech translation, and custom voice applications.
+
+#### Reference
+- [What is question answering? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/overview)
+- [Export/import/refresh - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/how-to/export-import-refresh)
+- [Speech Studio overview - Speech service - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-studio-overview)
+
+
+
+
+
+
+
+### AI Service - AI Search
+You are developing a new e-commerce website in Azure. Your site will use Azure SQL Database (DB) and Azure Cosmos DB to store transactional and operational data.  You need to build a crawler service so that the searchable content is extracted daily from your databases and added to an index. You plan to use Azure Cognitive Search to accomplish your goal. Which four actions should you perform in sequence? Move the answer boxes around.  Order matters.
+
+#### Notes
+You should perform the following steps in order to enable an indexer (a crawler service) in Azure Cognitive Search:
+1.	Create a data source
+2.	Define an index
+3.	Create an indexer
+4.	Schedule an indexer
+
+(1) You should first create a data source. You need to provide connection strings and required credentials so that the indexer can access the original content in your source Azure SQL and Cosmos databases.
+
+(2) Then, you should define an index. Fields in your index should match the fields in the configured data sources by name and type.
+
+(3) Next, you should create an indexer. By creating an indexer, you set up an indexing pipeline that extracts the source data and passes it to the search engine for data ingestion.
+
+(4) Finally, you should schedule an indexer. Normally, an indexer runs only once after its creation. In the question scenario, the index needs to be populated on a daily basis. This is why you should define a recurring schedule for your indexer.
+
+(Not) You should not attach an OCR skillset to the pipeline. Built-in OCR (optical character recognition) skillsets allow you to extract text from images as a part of an Al-enrichment process. In this scenario, there is no need to use OCR as the data is stored in SQL and NoSQL databases.
+You should not migrate data to Cosmos DB. The indexer can natively crawl both Azure SQL DB and Azure Cosmos DB, without needing to migrate any data.
+
+#### Reference
+- [Introduction to Azure AI Search - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/search/search-what-is-azure-search)
+- [Indexer overview - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/search/search-indexer-overview)
+- [AI enrichment concepts - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/search/cognitive-search-concept-intro)
+
+
+
+### AI Service - AI Search
+Your company hosts its e-commerce solution in an Azure subscription associated with a Microsoft Entra ID (AAD) tenant named company1.onmicrosoft.com.  You are asked to enable a search-as-you-type functionality in the e-commerce solution so that it auto-fills product names based on partial input from customers.  You deploy an Azure AI Search service named csearch1 and create a search index named index1 based on the product database.  You need to define an Azure AI Search API endpoint against which you can submit your HTTPS POST request.
+
+How should you define the API endpoint? Complete the code.  (Drop list)
+
+#### Notes
+You should define the API endpoint as follows;
+```text
+https ://csearchl.search.windows.net/indexes/indexl/docs/autocomplete?api-version= api-version=2020-06-30
+
+- index1
+- autocomplete
+```
+(Use) You should use csearch1. A fully qualified domain name (FQDN) in the API endpoint should contain the name of the actual Azure AI Search resource.
+
+(Use) You should use *index1*. It is a required parameter in the API endpoint name that should be specified after the endpoint’s FQDN and indexes sub-path.
+
+(Use) You should use *autocomplete*. The autocomplete parameter is used in the Azure AI Search Autocomplete operation. You use autocomplete to finish a partially typed query using existing product names in the specified index in a secondary query.
+
+(Not) You should not use company1, company1 is the name of your Entra ID tenant. When calling the Azure AI Search API endpoint, you do not need to specify your Entra ID tenant details. Your POST API request requires the names of your Azure AI Search service and relevant search index.
+
+(Not) You should not use key. The key parameter is used in Azure AI Search Lookup Document operations. You use a key, which is also referred to as a Document ID, to retrieve a specific document from the Azure AI Search index. The value of the key parameter is case-sensitive.
+
+(Not) You should not use suggest. The suggest parameter is used in Azure AI Search Suggestions operations. It can be used in a search-as-you-type query to find matching values and return relevant documents from Azure AI Search that contain a match. Suggestions operation resolves to actual documents. It is different from the Autocomplete operation required in this scenario, which returns a completed term or phrase used in a secondary query.
+#### Reference
+- [Autocomplete or typeahead - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/search-add-autocomplete-suggestions)
+- [Autocomplete - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/searchservice/autocomplete)
+- [Lookup Document - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/searchservice/lookup-document)
+- [Suggestions - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/searchservice/suggestions)
+
+
+
+
+
+
+
+### AI Services - Language Service | Custom Vision | Document Intelligence
+
+Your company receives thousands of forms daily in various formats, such as invoices, purchase orders, and shipping notes.  The finance team wants to extract key-value pairs, text, and tables from scanned copies of these forms automatically to update transactions in the accounting system.
+You need to determine which Azure solutions you can use to meet these business requirements.
+Which two solutions should you choose? 
+
+#### Notes
+- Build custom models with Azure AI Document Intelligence
+- Use pre-built models of Azure AI Document Intelligence
+
+#### Notes
+(Use) You should use *pre-built models of Azure AI Document Intelligence*. Azure AI Document Intelligence is an Azure AI service that uses machine learning models to *automate data extraction from your forms and documents*. It can extract key-value pairs, text, and tables, and it can return results in a structured JSON format. Azure AI Document Intelligence comes with a pre-trained models to process invoices, receipts, tax forms, and some other document types.
+
+(Use) You should also *build custom models with Azure AI Document Intelligence*. You can train custom models for document types not covered by Azure AI Document Intelligence’s pre-built models, for example shipping notes. You need at least five training documents in PDF or image formats to start custom model training for each document class.
+
+You should not build classification models with Azure AI Custom Vision. Image classifier built with Custom Vision service can apply content labels to images based on their visual characteristics. *It cannot extract key-value pairs, text, or tables from provided forms.*
+
+You should not use key phrase extraction or named entity recognition (NER) in Azure AI Language. Both are the natural language processing (NLP) features *designed to understand and analyze text*, not to extract key-value pairs, text, or tables from accounting and sales forms. Key phrase extraction can be used to identify the main concepts in unstructured text. NER can be used to identify and categorize entities in unstructured
+text.
+
+#### Reference
+- [What is Azure AI Document Intelligence (formerly Form Recognizer)? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview?view=doc-intel-4.0.0)
+- [Quickstart: Build an image classification model with the Custom Vision portal - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/ai-services/custom-vision-service/getting-started-build-a-classifier)
+- [What is Azure AI Language - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/ai-services/language-service/overview)
+
+
+
+
+
+
+### AI Service -AI Search | AI Enrichment | Document Intelligence 
+
+You are managing a new project focused on the integration of Azure Cognitive Search into your corporate application. You plan to use third-party resources for any development activities.
+You are reviewing the provided business requirements for *AI enrichment.* You need to identify those that *require the development of custom skills.*  For which two business requirements should you create a custom skill? 
+
+#### Notes
+- Processing invoices with Azure AI Document Intelligence
+- Using Bing Entity Search to describe given geographical locations
+
+(Use) You should create a custom skill if you are processing invoices with Azure AI Document Intelligence. Azure AI Document Intelligence is a service that allows you to analyze and extract text from structured documents like invoices. Azure Cognitive Search does not provide any built-in skills to apply the Azure AI Document Intelligence’s functionality in an AI enrichment pipeline. For this reason, you need to create a custom skill for it.
+
+(Use) You should also create a custom skill if you are *using Bing Entity Search* to describe given geographical locations. The Bing Entity Search functionality is not available in Azure Cognitive Search as a built-in cognitive skill. For this reason, you need to build a custom skill and programmatically call the Bing Entity Search API to return descriptions for the given locations.
+
+(Not) You should not create a custom skill if you are extracting text from contracts in PDF format, making scanned images fully text-searchable, or translating text from multi-lingual documents. Azure Cognitive Search provides built-in cognitive skills for natural language and image processing tasks. You can use built-in skills to, for example, extract text from PDF documents or scanned images using optical character recognition (OCR), detect language, analyze sentiments, or translate text from multi-lingual documents.
+
+
+#### Reference
+- [Custom skill interface - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/cognitive-search-custom-skill-interface)
+- [AI enrichment concepts - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/cognitive-search-concept-intro)
+- [Custom skill example using Bing Entity Search API - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example)
+- [What is Azure AI Document Intelligence (formerly Form Recognizer)? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview?view=doc-intel-4.0.0&tabs=v2-1)
+
+
+
+
+### AI Service - Cognitive Search | AI Search
+You want to test the functionality of Azure Cognitive Search. You provision a new Cognitive Search resource in the Azure portal.
+The configuration setting of your Azure Cognitive Search resource is shown below:
+
+```text
+{
+	"id" :
+	"/subscriptions/abodefgO12345/resourceGroups/MySearch/providers/Microsoft.Search/se archServices/azcogsearch",
+	"name": " azcogsearch",
+	"type": "Microsoft.Search/searchServices",
+	"location": "North Europe",
+	"tags": {},
+	"properties": {
+		"replicaCount": 2,
+		"partitionCount": 1,
+		"status": "provisioning",
+		"statusDetails": "",
+		"provisioningState": "provisioning",
+		"hostingMode": "Default",
+		"publicNetworkAccess": "Enabled",
+		"networkRuleSet": {
+			"ipRules": [] ,
+			"bypass": "None"
+	},
+	"privateEndpointConnections": [] ,
+	"sharedPrivateLinkResources": [ ]
+},
+"sku": {
+	"name": "basic"
+}
+```
+
+For each of the following statements, Yes if True. True/False Statement
+
+- (No) You provision the Cognitive Search resource using the Standard pricing tier.
+- (Yes) Your configuration guarantees high availability of read-only workloads.
+- (No) You can change the pricing tier once the Cognitive Search resource is provisioned.
+
+#### Notes
+(No) You do not provision the Cognitive Search resource using the Standard pricing tier. Standard is the default pricing tier for Azure Cognitive Search. In this scenario, you use the Basic pricing tier as shown in the sku JSON element. With the Basic tier, the projects you can deploy are smaller, and you have less flexibility in scaling in comparison to the Standard tier.
+
+(Yes) Your configuration guarantees high availability of read-only workloads. Your Azure Cognitive Search will have two replicas, which are copies of your index. With two replicas, you meet Microsoft's Service Level Agreement (SLA) to guarantee at least 99.9% availability of read-only workloads. To guarantee high availability of read-write workloads, you should have three or more replicas.
+
+(No) You cannot change the pricing tier once the Cognitive Search resource is provisioned. The pricing tier of the Azure Cognitive Search resource can only be set at the time of creation. If you require a higher or lower pricing tier, you need to create a new Azure Cognitive Search resource.
+
+#### Reference
+- [Choose a service tier - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/search/search-sku-tier)
+- [Reliability in Azure AI Search - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/search-reliability)
+- [Create a search service in the portal - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/search-create-service-portal)
+
+
+
+
+
+### AI Service - Custom Vision | Image Classification | Knowledge Mining
+
+You are a data scientist at a large multinational corporation. Your company collects and stores its business data in both structured and unstructured formats. The structured data resides in various databases, while the unstructured data consists of PDF, images, videos, and audio files.
+Your company wants to obtain insights from its data to support strategic decision-making processes. You need to implement a knowledge mining solution to meet the business requirements. Which three steps should you take to implement a knowledge mining solution? Move boxes.  Order matters.
+
+#### Notes
+You should perform the following steps in order:
+1.	Ingest and aggregate content.
+2.	Use AI capabilities to enrich data with new insights.
+3.	Explore data and discover patterns.
+
+(1) You should ingest and aggregate content as a first step. During this ingestion step, you can use various connectors to import structured and unstructured data to make it searchable, and perform additional aggregation operations.
+
+(2) Next, you should use AI capabilities to enrich data with new insights. During this step, you can enrich your content with key phrase extraction, optical character recognition, entity recognition, text translation and other Azure AI service features.
+
+(3) Finally, you should explore data and discover patterns. During this stage, you make search index accessible to your business applications and tools to allow rich exploration, visualization and presentation.
+
+(Not) You should not create a new image classification project, train the image classifier or evaluate the image classifier. These steps are required to build an image classification model with Azure AI Custom Vision service. Custom Vision model can be trained to learn about visual characteristics of images to apply labels. While it can be useful in certain scenarios, Custom Vision supports only image classification and object detection features and cannot be used to extract insight from diverse data formats as required in this case.
+
+#### Reference
+- [Knowledge Mining | Microsoft Azure](https://azure.microsoft.com/en-gb/solutions/knowledge-mining)
+- [Knowledge mining for content research - Azure Architecture Center | Microsoft Learn](https://learn.microsoft.com/en-GB/azure/architecture/solution-ideas/articles/content-research)
+- [Quickstart: Build an image classification model with the Custom Vision portal - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/getting-started-build-a-classifier)
+
+
+
+### AI Service - AI Search | Performance
+You use Azure Cognitive Search to index your organization's documents and data.
+Users report that some queries are slow. You repeat the users' queries when there is no load on the service and the queries are still slow.  What should you do to improve performance of slow-running queries?
+
+#### Notes
+- Add Partitions
+	; Ironic - this is what we always do in DBR, add partitions, keep the shuffles down
+
+(Use) You should add partitions. Partitions split data across different computing resources. This has the effect of improving the performance of slow and large queries.
+
+(Not) You should not add replicas. Replicas are primarily used for load balancing, and so assist with the response for all queries under load from multiple users. Adding a replica will not make an individual query perform faster.
+
+(Not) You should not add fields to the index. Increasing the fields in an index increases the size of the index and reduces query performance. You should *consider reducing* the fields in the index instead of increasing them.
+
+(Not) You should not convert fields to complex types. Complex types require more storage space, making the index larger. You should instead consider converting complex types to simpler types to improve performance.
+
+#### Reference
+- [Performance tips - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/search-performance-tips)
+- [Estimate capacity for query and index workloads - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/search-capacity-planning)
+
+
+
+
+### AI Service - Knowledge store projections
+
+You are working for a large health care insurance processing company. The company has an Azure Cognitive Search-based enrichment pipeline that can traverse through various data sources such as claim forms, patient data, and patient prescriptions used across different business domains.
+The enrichment process of these raw data sources creates new enriched documents, which are useful in knowledge mining. You are tasked with building a knowledge store for storing these enriched documents into physical storage for knowledge mining purposes.  You need to help the organization identify the correct types of projection for the given enriched data description.
+Which type of projection should you use for each scenario?  Move boxes. Order matters.
+
+- Transactional data rows are extracted from patient prescription PDF forms using OCR: *Tables Projection*
+- The customer medical card photograph attached in the claim form is extracted as a JPEG image: *Files Projection*
+- Customer feedback on processed claims is parsed through key phrase extraction built-in skill to generate JSON output: *Objects Projection*
+
+You should use *table projections* for transactional data rows that are extracted from patient prescription PDF forms using Optical character recognition (OCR). The data set generated is transactional. This means it can be stored in tabular form into physical storage solutions like Azure Table Storage. In this way, table projections will allow you to define a schematized shape or projection in table storage.
+
+You should select *file projections* if the customer medical card photograph attached in a claim form is extracted as a .JPEG image. By using file projections, these images can be normalized and saved into Azure Blob Storage.
+
+You should select *object projections* when customer feedback on processed claims is parsed through a key phrase extraction built-in skill to generate JSON output. The JSON data set generated can be stored in Azure Blob Storage. Only valid JSON objects can be projected as objects. The enriched document is created by projecting these objects with a shaper skill or inline shaping.
+#### Reference
+- [Projection concepts - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-gb/azure/search/knowledge-store-projection-overview)
+
+
+
+
+
+### AI Service - Search Index | AI Search Skillsets
+
+You manage an Azure Cognitive Search solution that searches product data held in Cosmos DB. You need to favor newly added products in search rankings.  What should you do?
+
+- Add a scoring profile
+#### Notes
+(Use) You should add a scoring profile. Scoring profiles are part of the index definition and boost the relevance search based on the fields that you specify. You can use the date the product was added to boost its relevance score in search.
+
+(Not) You should not set scoringStatistics to global in queries. Setting scoringStatistics to global will generate relevance scores across all shards rather than for each shard. It will not favor newly added documents.
+
+(Not) You should not add orderby for the dateAdded sortable field in queries. Orderby is used within search results to only sort results that have the same score. It will not favor newly added documents.
+
+(Not) You should not add a skillset. A skillset enriches content during indexing. You can enrich data with Artificial Intelligence. Skills will not favor newly added documents to an index.
+
+#### Reference
+- [Add scoring profiles - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/index-add-scoring-profiles)
+- [BM25 relevance scoring - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/index-similarity-and-scoring)
+- [Skillset concepts - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/cognitive-search-working-with-skillsets)
+
+
+
+
+
+
+### Azure Service - Document Intelligence
+
+Your company wants to automate the processing of incoming invoices using Azure AI Document Intelligence.  You test the prebuilt invoice model of Azure AI Document Intelligence with a sample invoice.
+
+Statement T/F
+
+- (No) The results of the invoice analysis can be downloaded in XML format
+- (Yes) You can access prebuilt invoice model from Document Intelligence Studio
+- (Yes) You can access prebuilt invoice model from C# Software Development Kit (SDK)
+
+The results of the invoice analysis cannot be downloaded in XML format. The web interface of Azure AI Document Intelligence provides you with an option to download the results of your invoice analysis. Azure AI Document Intelligence supports export in JSON format.
+You can access prebuilt invoice model from Document Intelligence Studio. The Document Intelligence Studio allows you to access Azure AI Document Intelligence's prebuilt and custom models online and experiment with them without the need to write code.
+You can access prebuilt invoice model from Cn Software Development Kit (SDK). Azure AI Document Intelligence's prebuilt and custom models can be integrated into your workflows and applications by using Ctt, Python, Java and JavaScript SDKs.
+
+#### Reference
+- [What is Azure AI Document Intelligence (formerly Form Recognizer)? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview?view=doc-intel-4.0.0&tabs=v2-1)
+- [Invoice data extraction – Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-invoice?view=doc-intel-3.1.0)
+- [Quickstart: Document Intelligence (formerly Form Recognizer) SDKs - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/quickstarts/get-started-sdks-rest-api?view=doc-intel-4.0.0&pivots=programming-language-csharp)
+
+
+
+
+
+### AI Service - Document Intelligence  (Form Recognizer)
+
+You are an AI Developer at a legal firm that processes various types of documents. Your company wants to use Azure AI Document Intelligence to automate the extraction of the relevant information from these documents.  You plan to use a pretrained model to avoid custom model training.  You need to ensure that the selected model can extract key-value pairs, such as names, dates, amounts and signatures.
+
+- General Document
+
+#### Notes
+
+(Use) You should use the *general document* model. The general document model is a pretrained model that can extract key-value pairs in addition to text and document structure details. The general document model does not require any training or customization, and it can handle both structured and unstructured documents.
+
+(Not) You should not use the *composed model*. Composed is a custom model that can combine several custom models to automate the processing of complex document types. Composed models require training and customization, and they are not prebuilt models.
+
+(Not) You should not use the *custom neural model*. Custom neural models are deep learning models that are trained on various document types. They allow you to process structured, semi-structured and unstructured documents. Custom neural models are not prebuilt models, and they require training and customization.
+
+(Not) You should not use *layout analysis* model. The layout analysis model can extract structural information from your documents, such as tables, selection marks, titles, section headings, and more. Layout analysis models are pretrained; however, they do not extract key-value pairs details from your documents.
+
+
+# Reference
+- [Choose the best Document Intelligence (formerly Form Recognizer) model for your applications and workflows - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/choose-model-feature?view=doc-intel-4.0.0)
+- [General key-value extraction - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-general-document?view=doc-intel-4.0.0)
+- [Composed custom models - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-composed-models?view=doc-intel-4.0.0)
+- [Custom neural document model - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-custom-neural?view=doc-intel-4.0.0)
+- [Document layout analysis - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-layout?view=doc-intel-4.0.0)
+
+
+
+
+
+### AI Service - Document Intelligence
+You are developing a solution to extract data from invoices. You want to use Azure AI Document Intelligence to train your extraction models.  You have prepared a set of labeled invoices in different formats and languages.  You need to determine which model types to use.
+Which data model should you use for each scenario? Move boxes.
+
+- Use a rule-based approach to map the fields to the signed documents with consistent
+format and style: *Custom Template*
+- Use deep learning techniques to learn the structure and semantics of the documents
+with mixed layouts: *Custom neural*
+
+#### Notes
+(Use) The *custom template* is the model type that uses a rule-based approach to map the fields to the signed documents with consistent format and style. The custom template models are trained on labeled highly structured documents that have a fixed layout, and can be used to extract key-value pairs, tables, regions and signatures.
+
+(Use) The *custom neural* is the model type that uses deep learning techniques to learn the structure and semantics of the documents with mixed layouts. The custom neural models use an advanced machine learning technique to learn about the structure of labeled documents, which makes them suitable for the data extraction from documents with variations in format and style.
+
+(Not) You should not use prebuilt invoice or prebuilt receipt models. These model types are pre-trained to extract data from invoices and receipts respectively. They can handle some variations in layout and style, but they are not customizable and you cannot retrain them with your labeled invoices.
+
+#### References
+- [Custom document models - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-custom?view=doc-intel-4.0.0)
+- [Custom template document model - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-custom-template?view=doc-intel-4.0.0)
+- [Custom neural document model - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-custom-neural?view=doc-intel-4.0.0)
+- [Document processing models - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-model-overview?view=doc-intel-4.0.0)
+
+
+
+
+
+### AI Service - Document Intelligence
+
+You are an AI Developer at a global retail company. You are developing a solution that will extract data from various purchase orders.  You have trained several custom template models using Azure AI Document Intelligence, each one for a specific product group.  You need to use a single model ID to analyze the incoming purchase orders and automatically select the best-matching custom template model.  What should you do?
+
+- Assign trained models to a single composed model.
+
+(Use) You should assign trained models to a single composed model. A composed model allows you to group existing custom template or neural models and analyze a document with a single model ID. The Azure AI Document Intelligence service performs a classification to decide which custom template model best represents the submitted purchase order.
+
+You should not create a combined dataset for all product groups and train a custom neural model. It would create a new custom neural model. In in this scenario, you want to re-use the capabilities of existing custom template models and that is why you should create a composed model instead.
+You should not train a custom model using REST API and setting the buildMode property to neural or template. This action can be used to train a new custom neural or template model. To meet the requirement, you can use REST API to create a new composed model instead and assign the model IDs of existing custom template models to it.
+
+#### Reference
+- [What is Azure AI Document Intelligence (formerly Form Recognizer)? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview?view=doc-intel-4.0.0)
+- [Composed custom models - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-composed-models?view=doc-intel-4.0.0)
+- [Custom neural document model - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-custom-neural?view=doc-intel-4.0.0)
+- [Custom template document model - Document Intelligence (formerly Form Recognizer) - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept-custom-template?view=doc-intel-4.0.0)
+
+
+
+
+### AI Service -
+
+You are an AI engineer. You want to use Azure OpenAI Service for your new development project.
+You create a new resource group named Demo_RG in your Azure subscription to host your Azure resources. 
+You need to compose an Azure command line interface (CLI) command to provision Azure OpenAI Service resource named Demo_AOAI in Sweden Central.   How should you compose your Azure CLI command? 
+
+#### Notes
+You should use the following command to provision the Azure OpenAI Service resource:
+```text
+az cognitiveservices account create -n Demo_AOAI -g Demo_RG -1 swedencentral —kind OpenAI --sku sO
+```
+Stare and let it sink in.
+
+You should use the cognitiveservices command. This command allows you to manage Azure AI Services, including Azure OpenAI.
+
+You should use Demo_AOAI as the value of the -n parameter, -n is a shorter version of the -name parameter, which defines the name of the Azure AI service, -n is a mandatory parameter of the az cognitiveservices account create Azure CLI command.
+
+You should use Demo_RG as the value of the -g parameter, -g is a shorter version of the -resource-group parameter, that defines the name of the Azure resource group. If you want to skip this parameter, you can set the default group using the az configure --defaults group=<YOUR_GROUP> Azure CLI command.
+
+You should use OpenAI as the value of the -kind parameter. This parameter defines the API name of the target Azure AI Service. The full list of supported -kind parameter values can be obtained through the execution of the az cognitiveservices account list-kinds Azure CLI command.
+
+You should not use ImmersiveReader. ImmersiveReader is a valid value for the -kind parameter. 
+
+You can provision an Azure AI Immersive Reader service to make reading easier and more accessible for end users.
+
+The two other parameters have their values defined. -I indicates the location of the Azure AI Service resource, which should be set to Sweden Central. The -sku parameter indicates the pricing tier of the new resource, with sO indicating the Standard pricing tier value.
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [How-to: Create and deploy an Azure OpenAI Service resource - Azure OpenAI | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal)
+- [az cognitiveservices account | Microsoft Learn](https://learn.microsoft.com/en-us/cli/azure/cognitiveservices/account?view=azure-cli-latest)
+- [Create an Immersive Reader Resource - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/immersive-reader/how-to-create-immersive-reader)
+
+
+
+
+### AI Service - OpenAI
+You are an AI developer at an education agency that provides online tutoring services. You are developing a chatbot that uses Azure OpenAI Service to assist students with their questions. You want to use the Chat Completions API to interact with Azure OpenAI models.
+You need to identify the models that support the Chat Completions API.
+Which two models should you identify? Each correct answer presents a complete solution.
+
+- GPT-4-32k
+- GPT-35-Turbo
+
+#### Notes
+I doubt like hell any of these were on my test bank.  The GPT models change too frequently for a test bank to keep current with.
+
+(Use) You should identify GPT-35-Turbo. GPT-35-Turbo is a large language model (LLM) that was optimized for conversational interfaces. It supports the Chat Completions API to receive input in a specific chat-like transcript format, and return a completion that represents an LLM-written message.
+
+(Use) You should also identify GPT-4-32k. GPT-4-32k is a chat-optimized LLM with a token limit of 32,768 or 32k, as reflected in its name. GPT-4-32k supports the Chat Completions API with a conversion-in and message- out approach.
+
+(Not) You should not identify GPT-35-Turbo-instruct. GPT-35-Turbo-lnstruct is an LLM that can generate natural language texts based on instructions or commands in the prompt. It can only be accessed through the Completions API.
+
+(Not) You should not identify Text-Embedding-Ada-002. Text-Embedding-Ada-002 is an Azure OpenAI model that generates vector embeddings for the provided texts. This model can only be used with the Embedding API requests.
+You should not identify Whisper. Whisper is a speech-to-text model that you can use to transcribe audio files. Whisper model can be accessed via Azure OpenAI or Azure AI Speech endpoints.
+
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [Azure OpenAI Service models - Azure OpenAI | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models)
+- [How to work with the GPT-35-Turbo and GPT-4 models - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/chatgpt?tabs=python&pivots=programming-language-chat-completions)
+- [Azure OpenAI Service embeddings - Azure OpenAI - embeddings and cosine similarity | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings)
+- [The Whisper model from OpenAI - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/whisper-overview)
+
+
+
+### AI Services - OpenAI
+
+You are developing a chatbot application that uses Azure OpenAI to interact with chat users.
+You write the following code snippet in Python:
+```py
+response = openai.ChatCompletion.create( 
+	engine="gpt-35", 
+	messages=[
+		{"role": "system", "content": "You are a friendly chatbot."},
+		{"role": "user", "content": "How can I reset my password?"}
+	]
+)
+completion = response['choices'] [0] ['message'] ['content'] 
+usage = response['usage']
+```
+
+T/F Statement
+- (No) The code uses the Completion API to generate natural language.
+- (Yes) The engine parameter is set to the name of an Azure OpenAI deployment.
+- (Yes) The usage variable contains the token counts for both the prompt and the completion.
+
+#### Notes
+(No) The code does not use the Completion API to generate natural language. Instead, it uses the Chat Completion API. The Chat Completion API expects input formatted in a specific chat-like transcript format and returns a completion that represents a message generated by the GPT model.
+
+(Yes) The engine parameter is set to the name of an Azure OpenAI deployment. Each model deployment in Azure OpenAI Service has its own unique name, which you can use in your code to interact with the model through the client libraries and the REST APIs.
+
+(Yes) The usage variable contains the token counts for both the prompt and the completion. The usage variable will return a Python dictionary with **three keys**: *prompt_tokens, completion_tokens and total_tokens,* and their respective values. These details allow you to retrieve the token counts for both the prompt and the completion per API request.
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [How to work with the GPT-35-Turbo and GPT-4 models - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/chatgpt?tabs=python&pivots=programming-language-chat-completions)
+
+
+
+
+
+
+
+### AI Services - OpenAI
+
+You are an AI developer working for a retail company. Your company wants to use the capabilities of Azure OpenAI Service to analyze the content of their customer relationship management (CRM) solution.
+You have received the following prompt example from your colleague to test with the Azure OpenAI Service’s GPT-35-Turbo-lnstruct model:
+
+```text
+### Postgres SQL tables, with their properties:
+#
+•	Customer(id, name, email, phone)
+•	Product(id, name, price, category)
+•	Order(id, customer_id, product_id, quantity, date)
+#
+###
+A query to list the names and prices of the products that were ordered by more than 5 customers in the last month
+SELECT
+```
+
+You write a Python script to submit the given prompt.
+You need to determine the output of submitting this prompt to Azure OpenAI.
+What will be the outcome of this submission?
+
+#### Notes
+- Returned completion will contain a SQL query to select the Product.name and Product, columns for the described condition.
+
+Returned completion will contain a SQL query to select the Product.name and Product.price columns for the described condition. The output of submitting this prompt to Azure OpenAI Service will be a SQL query that performs the query and returns the names and prices of the products that were ordered by more than five customers in the last month. The SQL query might look like this:
+```text
+SELECT
+Product.name,
+Product.price
+FROM
+Product INNER JOIN
+Order ON Product.id = Order.product_id WHERE
+Order.date >= CURRENT_DATE - INTERVAL '1 month'
+GROUP BY
+Product.name,
+Product.price HAVING
+COUNT(DISTINCT Order.customer_id) > 5
+```
+
+(Not) Azure AI Document Intelligence will not train a custom template model to extract data from sales orders. Azure AI Document Intelligence is a different service that allows you to train custom template models to extract data from specific document types that you provide.
+
+(Not) GPT-35-Turbo-lnstruct model will not generate a new Python function to print the names and prices of the products. The provided prompt describes the database structure and instructs your Azure OpenAI model to generate a SQL query. To produce a new Python function, you need to specify the required *programming language explicitly* and indicate that the new function should print the names and prices of the products. Your prompt could look like this:
+```text
+# Python
+# Create a function to print the names and prices of the products
+```
+The returned completion will not explain in a human-readable format what the SQL query is doing. To get an explanation on the logic of the SQL query, you need to provide the query in your prompt and explicitly ask what you want to clarify, similar to the example below:
+```text
+// What does the following query do?
+SELECT * FROM customers
+WHERE State = 'Texas' AND FirstName = 'Jane'
+```
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [How to use the Codex models to work with code - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/work-with-code)
 
 
 
@@ -1645,40 +2808,174 @@ https ://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=zh
 
 
 
+### AI Service - OpenAI
+
+You are an AI Engineer. You are developing an application that uses Azure OpenAI Service to generate images from natural language prompts. You test the functionality of the DALL-E model in Azure AI Studio as shown in the exhibit. For each of the following statements, select Yes if the statement is true. Otherwise, select No.
+
+(Yes) You can generate up to three images for each submitted prompt.
+(Yes) You can set the size of the generated images to 1024x1024.
+(No) You can save generated images in JPEG format.
+
+#### Notes
+(Yes) You can generate up to three images for each submitted prompt. The DALL-E model allows you to generate up to three images for each prompt by using the Settings option in the DALL-E playground. You can also define it programmatically in your Python code or REST API request.
+
+(Yes) You can set the size of the generated images to 1024x1024. At of the time of writing, the DALL-E model supports three image sizes: 256x256, 512x512 and 1024x1024. You can set the required image size in the DALL-E playground using the Settings option.
+
+(No) You cannot save generated images in JPEG format. At of the time of writing, the DALL-E model supports only PNG format.
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [Quickstart: Generate images with Azure OpenAI Service - Azure OpenAI | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/dall-e-quickstart?tabs=dalle3%2Ccommand-line&pivots=programming-language-studio)
 
 
 
 
 
 
+### AI Service - OpenAI
+
+You are developing a chatbot that uses Azure OpenAI to generate text responses based on user input. You have deployed the GPT-4 model to the Azure OpenAI service and named it my-model. Your Azure OpenAI service is hosted in the East US region.
+You want to test the functionality of your model via the REST API.
+You need to submit your prompt using a curl command.
+Form the curl command.
+
+#### Notes
+Your curl command should be as follows:
+```text
+curl https ://eastus.api.cognitive.microsoft.com/openai/deployments/my- model/chat/completions?api-version=2023-05-15 -H "Content-Type: application/json" - H "api-key: 12345abcd67890" -d "{"messages":[{"role": "user", "content": "Better late than never"}]}"
+```
+This option uses the Chat Completion API, which allows you to have a chat conversation with the model by sending and receiving messages. The chat feature requires you to specify the messages parameter in the request body, which is an array of objects that contain the role and the content of each message.
+
+(Not) You should not use:
+```text
+curl https ://eastus.api.cognitive.microsoft.com/openai/deployments/my- model/completions?api-version=2023-05-15 -H "Content-Type: application/json" -H "api-key: 12345abcd67890" -d "{"prompt": "Better late than never"}"
+```
+or
+```text
+curl https://eastus2.api.cognitive.microsoft.com/openai/deployments/my- model/completions?api-version=2023-05-15 -H "Content-Type: application/json" -H "api-key: 12345abcd67890" -d "{"prompt": "Better late than never"}".
+```
+Both of these options use the Completion API, which is not supported by the GPT-4 model. The Completion API allows you to generate text based on a prompt. One of these curl commands submits the prompt to an Azure AI Service in East US, while the second one submits the prompt to East US 2.
+Nor should you use:
+```text
+curl https ://eastus.api.cognitive.microsoft.com/openai/deployments/my- model/embeddings?api-version=2023-05-15 -H "Content-Type: application/json" -H "api-key: 12345abcd67890" -d "{"input": "Better late than never"}".
+```
+This option uses the embeddings feature of the Azure OpenAI service, which allows you to get the vector representation of a text input.
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [Azure OpenAI Service REST API reference - Azure OpenAI | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference)
+- [How to work with the GPT-35-Turbo and GPT-4 models - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/chatgpt?tabs=python&pivots=programming-language-chat-completions)
 
 
 
 
 
 
+### AI Service - OpenAI
+You are an AI developer at a retail company. You want to use Azure OpenAI Service to build a chatbot that can answer customer queries about your company’s products and services. You write a Python code to submit an API request to the Azure OpenAI model's Completion endpoint.
+You need to ensure that the size of your completion does not exceed 2000 tokens, the model avoids repetition of the same tokens and the behavior is more deterministic.
+How should you complete your Python code? Complete the code (Drop list)
+
+You should complete the code as follows:
+```text
+import requests 
+headers = {
+	"api-key": endpoint_api,
+	"Content-Type": "application/j son"
+}
+params = {
+	"prompt": "Write a summary of Product X' main features.",
+	"max_tokens" : 2000,
+	"temperature" : 0,
+	"frequency_penalty" : 2
+}
+
+response = requests.post(endpoint_url, headers=headers, json=params)
+```
+You should set the *max_tokens* parameter to 2000. The max_tokens parameter determines the maximum number of tokens to generate in the completion. The token count of the prompt plus the max_tokens cannot exceed the model’s context length.
+
+You should set the *temperature* parameter to 0. The temperature parameter controls the randomness of the text generation. A lower temperature means the model will generate more predictable and deterministic text.
+
+You should set the *frequency_penalty* parameter to 2. The value of this parameter may vary between -2.0 and 2.0. A higher frequency_penalty will penalize tokens that have already appeared in the model’s generated text.
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [Azure OpenAI Service REST API reference - Azure OpenAI | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference)
+- [Quickstart - Get started using GPT-35-Turbo and GPT-4 with Azure OpenAI Service - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/chatgpt-quickstart?tabs=command-line%2Cpython&pivots=programming-language-studio)
 
 
 
 
+### AI Services - OpenAI
+
+You are developing a chatbot using Azure OpenAI Service that can generate personalized product recommendations. Your customers have complained about the relevance of the recommendations provided.  You need to investigate prompt engineering techniques to improve the quality and diversity of the chatbot’s responses. Match boxes to the response.
+
+- Communicating with the model and influencing its behavior by providing context or instructions relevant to your use case: *System Message*
+- Giving the model data to draw its responses from, preferably closer to the final form of the
+answer you seek: *Grounding Context*
+- Providing examples of the desired input and output format for the model: *Few-Shot Learning*
+
+#### Notes
+A *system message *is a prompt engineering technique where you use a special type of input to communicate with the Azure OpenAI model and influence its behavior by providing context or instructions relevant to your use case. It can be used to set the tone, the task, or any other information that can help the model generate better responses.
+
+*Grounding context* is a prompt engineering technique that gives the model data to draw its responses from, preferably closer to the final form of the answer you seek. This technique can be used to provide the model with relevant information and facts to generate more accurate and specific responses.
+
+*Few-shot learning* is a prompt engineering technique that you can use to provide examples of the desired input and output format for the model. This technique helps to guide the model on how to use its existing generalization ability to perform the required task without any additional fine-tuning or re-training.
+
+(Not) You should not use the zero-shot prompt. With the zero-shot prompt, no examples are provided to the model, only the task request. Zero-shot prompts are not guaranteed to produce high-quality or diverse responses, as they rely solely on the model’s general knowledge and creativity.
+
+#### Reference
+- [Prompt engineering techniques with Azure OpenAI - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions)
+- [How to work with the GPT-35-Turbo and GPT-4 models - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/chatgpt?tabs=python&pivots=programming-language-chat-completions)
+- [Transparency Note for Azure OpenAI - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/legal/cognitive-services/openai/transparency-note?tabs=text)
 
 
 
+### AI Services - OpenAI | AI Search
+You are an AI Engineer working for a travel agency. You are developing a chatbot that uses Azure OpenAI Service.  The chatbot needs to provide information about travel destinations, based on your company’s own data such as travel guides, reviews and tips. You investigate the functionality of the search options available with Azure OpenAI Service on your data.
+Yes/No to the statements.
+
+- (Yes) Keyword search relies on lexical similarity and the frequency of word occurrences.
+- (No) Vector search requires access to the GPT-4 model to generate the embeddings.
+- (Yes) Semantic ranking uses a deep learning model to re-score the top results from the search.
+
+#### Notes
+(Yes) *Keyword search* relies on lexical similarity and the frequency of word occurrences. Keyword search is a quick search method that does not incur additional cost. However, it may not capture the meaning and context of the query or the documents, and miss details that use synonyms or different wordings of the query.
+
+(No) *Vector search* does not require access to the GPT-4 model to generate the embeddings. GPT-4 is an Azure OpenAI model intended for chat conversations. You should use embedding models like text-embedding- ada-002 instead of generating vector embeddings.
+
+(Yes) *Semantic ranking* uses a deep learning model to re-score the top results from the search. Semantic ranking is a search method that uses a deep learning model to re-rank search results. Understanding the semantic meaning of query terms and documents allows semantic ranking to elevate matches that make more sense for the original query.
+
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [Using your data with Azure OpenAI Service - Azure OpenAI | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/use-your-data?tabs=ai-search)
+- [Full text search - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/search-lucene-query-architecture)
+- [Vector search - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/vector-search-overview)
+- [Semantic ranking - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/azure/search/semantic-search-overview)
 
 
 
+### AI Service - OpenAI
 
+You are an AI researcher. You want to use Azure OpenAI Service to generate captions for scientific images that contain domain-specific terms and symbols. You notice that the completions generated by the Azure OpenAI model are often inaccurate, vague, or irrelevant to your images. You prepare a collection of images and corresponding accurate captions.
+You need to build a custom model by retraining the Azure OpenAI base model with your data.
 
+Which of the following techniques should you use?
 
+#### Notes
+- Fine Tuning
 
+(Use) You should use fine-tuning. Fine-tuning allows you to customize a pre-trained model with your own data to improve the model’s performance and accuracy; for example, to generate more relevant captions for your images, as in this case. You can fine-tune a model in Azure OpenAI Studio by selecting a base model, choosing your training and validation data, training your custom model and deploying it to a managed endpoint.
 
+(Not) You should not use embedding. Embedding is a technique that allows you to transform your content into numerical vectors to capture their semantic and syntactic features. Embedding is used in vector similarity searches in Azure solutions such as Azure Cosmos DB for MongoDB vCore.
 
+(Not) You should not use prompt engineering. Prompt engineering is a technique that is focused on designing inputs to generate required outputs without modifying the model parameters. Prompt engineering may not be sufficient to capture the domain-specific terms and symbols.
 
+(Not) You should not use text summarization. Text summarization is a technique that is intended to generate a concise summary of a longer content. Text summarization cannot help with producing domain-specific output for your caption generator.
 
-
-
-
-
-
+#### Reference
+- [What is Azure OpenAI Service? - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview)
+- [Azure OpenAI Service fine-tuning considerations - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/fine-tuning-considerations)
+- [Prompt engineering techniques with Azure OpenAI - Azure OpenAI Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions)
 
 

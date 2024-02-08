@@ -699,7 +699,7 @@ Troubleshoot
 
 ### Additional Info
 
-**Bot**
+#### **Bot**
 - [https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0](https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0 "https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0")
 - [Configure bot settings - Bot Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/bot-service/bot-service-manage-settings?view=azure-bot-service-4.0&tabs=multitenant "https://learn.microsoft.com/en-us/azure/bot-service/bot-service-manage-settings?view=azure-bot-service-4.0&tabs=multitenant")
 - [Event-driven conversations and activity handlers - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/bot-activity-handler-concept?view=azure-bot-service-4.0&tabs=csharp "https://learn.microsoft.com/azure/bot-service/bot-activity-handler-concept?view=azure-bot-service-4.0&tabs=csharp")
@@ -720,16 +720,16 @@ Troubleshoot
 - [Azure Bot Service documentation - Bot Service | Microsoft Learn](https://learn.microsoft.com/azure/bot-service/?view=azure-bot-service-4.0)
 - [Choose a bot-building tool - Training | Microsoft Learn](https://learn.microsoft.com/training/modules/choose-bot-building-tool/)
  
-**LUIS**
+#### **LUIS**
 - [Testing for DevOps for LUIS apps - Azure | Microsoft Learn[(https://learn.microsoft.com/en-us/azure/ai-services/luis/luis-concept-devops-testing#luis-non-deterministic-training-and-the-effect-on-testing)
  
  
-**Face**
+#### **Face**
 - [How to specify a detection model - Face - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/how-to/specify-detection-model)
 - [Detect, analyze, and recognize faces - Training | Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/detect-analyze-recognize-faces/)
  
  
-Notes:
+### Notes:
 - Learn APIs for Translator, Speech, and Management etc.
    - [Management REST APIs - Azure AI Search | Microsoft Learn](https://learn.microsoft.com/en-us/rest/api/searchmanagement/#connect-to-the-management-endpoint)
    - [Quickstart: Azure AI Translator REST APIs - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/translator/quickstart-text-rest-api?tabs=csharp#prerequisites)

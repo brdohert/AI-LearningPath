@@ -442,7 +442,7 @@ Recall measures the model's ability to predict actual positive classes. F1 score
 
 
 
-# Shirley MacKay's Outline & Notes 
+# Outline & Notes 
 Practice Assessment - [Practice Assessments for Microsoft Certifications | Microsoft Learn](https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications "https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications")
 ## Videos 
 - [Preparing for AI-102 - Plan and manage an Azure AI solution (Part 1 of 6) | Microsoft Learn!](https://github.com/brdohert/AI-LearningPath/assets/46727041/3ec5029d-a60b-4d62-870f-611eb7469b3e)

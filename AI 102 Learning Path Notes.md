@@ -752,4 +752,4 @@ Notes:
 - How to upload audio files to Speech Service through Language Studio
 - Understand Multi-Label vs Multi-Class [Quickstart: Build an image classification model with the Custom Vision portal - Azure AI services | Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/getting-started-build-a-classifier#create-custom-vision-resources)
 - Understand CLI and Entities
-- [Anomaly Detector (Know the differences, such as batch, etc](https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0)
+- [Anomaly Detector ](https://learn.microsoft.com/azure/bot-service/bot-service-design-conversation-flow?view=azure-bot-service-4.0)(Know the differences, such as batch, etc)
